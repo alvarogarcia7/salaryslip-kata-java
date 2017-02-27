@@ -6,10 +6,12 @@ import com.example.kata.salaryslip.SalarySlipGenerator;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 
+@Ignore
 public class SalarySlipShould {
 
     private Console console;
