@@ -33,4 +33,15 @@ public class SalarySlipShould {
 
         context.assertIsSatisfied();
     }
+
+    @Test
+    public void print_the_name () {
+        context.checking(new Expectations() {{
+            oneOf(console).println("Employee Name: John J Doe");
+        }});
+
+        sut.generateFor(employee);
+
+        context.assertIsSatisfied();
+    }
 }
