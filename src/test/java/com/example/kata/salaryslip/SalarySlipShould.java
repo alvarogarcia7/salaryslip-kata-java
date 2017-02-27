@@ -27,6 +27,7 @@ public class SalarySlipShould {
     public void print_the_employeeId () {
         context.checking(new Expectations() {{
             oneOf(console).println("Employee ID: 12345");
+            allowing(console).println(with(any(String.class)));
         }});
 
         sut.generateFor(employee);
@@ -38,6 +39,7 @@ public class SalarySlipShould {
     public void print_the_name () {
         context.checking(new Expectations() {{
             oneOf(console).println("Employee Name: John J Doe");
+            allowing(console).println(with(any(String.class)));
         }});
 
         sut.generateFor(employee);

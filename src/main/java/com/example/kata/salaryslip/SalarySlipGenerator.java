@@ -9,5 +9,6 @@ public class SalarySlipGenerator {
 
     public void generateFor (final Employee employee) {
         console.println("Employee ID: " + employee.employeeId());
+        console.println("Employee Name: " + employee.name());
     }
 }
