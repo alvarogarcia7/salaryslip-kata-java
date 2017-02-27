@@ -3,8 +3,11 @@ package com.example.kata.salaryslip;
 import java.math.BigDecimal;
 
 public class Employee {
+    private final String employeeID;
+
     public Employee (final String employeeID, final String name, final BigDecimal grossAnnualSalary) {
 
+        this.employeeID = employeeID;
     }
 
     public BigDecimal grossAnnualSalary () {
@@ -16,6 +19,6 @@ public class Employee {
     }
 
     public String employeeId () {
-        return null;
+        return employeeID;
     }
 }
