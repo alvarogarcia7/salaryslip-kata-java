@@ -5,9 +5,15 @@ import java.math.BigDecimal;
 public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     @Override
     public BigDecimal taxableIncomeFor (final Employee employee) {
-        final BigDecimal personalAllowance = BigDecimal.valueOf(11000);
-        if (firstIsGreaterThan(employee.grossAnnualSalary(), personalAllowance)) {
-            return employee.grossAnnualSalary().subtract(personalAllowance);
+        BigDecimal personalAllowance = BigDecimal.valueOf(11000);
+        final BigDecimal grossAnnualSalary = employee.grossAnnualSalary();
+        final BigDecimal upperThreshold = BigDecimal.valueOf(100_000);
+        if(firstIsGreaterThan(grossAnnualSalary, upperThreshold)) {
+            personalAllowance = personalAllowance.subtract(grossAnnualSalary.subtract(upperThreshold).divide(BigDecimal
+                    .valueOf(2)));
+        }
+        if (firstIsGreaterThan(grossAnnualSalary, personalAllowance)) {
+            return grossAnnualSalary.subtract(personalAllowance);
         }
         return BigDecimal.ZERO;
     }
