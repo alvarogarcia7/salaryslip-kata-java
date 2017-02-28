@@ -22,9 +22,15 @@ public class NationalInsuranceContributionCalculatorShould {
     public void calculate_for_no_contributions_band_lower_bound () {
         assertThat(sut.amountFor(employeeMaking(BigDecimal.ZERO)),  is(ZERO));
     }
+
     @Test
     public void calculate_for_no_contributions_band_higher_bound () {
         assertThat(sut.amountFor(employeeMaking(BigDecimal.valueOf(8060.00))),  is(ZERO));
+    }
+
+    @Test
+    public void calculate_12_percent_for_contributions_in_the_basic_contributions_band () {
+        assertThat(sut.amountFor(employeeMaking(BigDecimal.valueOf(8061.00))), is(BigDecimal.ONE.multiply(BigDecimal.valueOf(0.12))));
     }
 
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
