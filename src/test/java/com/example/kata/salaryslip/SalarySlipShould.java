@@ -58,4 +58,15 @@ public class SalarySlipShould {
 
         context.assertIsSatisfied();
     }
+    @Test
+    public void print_the_national_insurance_contribution () {
+        context.checking(new Expectations() {{
+            oneOf(console).println("National Insurance contributions: £159.40");
+            allowing(console).println(with(any(String.class)));
+        }});
+
+        sut.generateFor(employee);
+
+        context.assertIsSatisfied();
+    }
 }
