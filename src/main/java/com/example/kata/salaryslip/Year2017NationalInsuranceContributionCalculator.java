@@ -2,33 +2,31 @@ package com.example.kata.salaryslip;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Year2017NationalInsuranceContributionCalculator implements NationalInsuranceContributionCalculator {
     @Override
     public BigDecimal amountFor (final Employee employee) {
         List<TaxBand> taxBands = new ArrayList<TaxBand>() {{
-            this.add(new TaxBand(BigDecimal.valueOf(8060), BigDecimal.ZERO));
-            this.add(new TaxBand(BigDecimal.valueOf(43000), BigDecimal.valueOf(0.12)));
-            this.add(new TaxBand(BigDecimal.valueOf(Integer.MAX_VALUE), BigDecimal.valueOf(0.02)));
+            this.add(new TaxBand(BigDecimal.valueOf(0), BigDecimal.ZERO));
+            this.add(new TaxBand(BigDecimal.valueOf(8060), BigDecimal.valueOf(0.12)));
+            this.add(new TaxBand(BigDecimal.valueOf(43000), BigDecimal.valueOf(0.02)));
         }};
 
-        final BigDecimal annualGrossSalary = employee.grossAnnualSalary();
-        final BigDecimal basicContributionsTreshold = BigDecimal.valueOf(8060.00);
-        if (firstIsGreaterThanSecond(annualGrossSalary, BigDecimal.valueOf(43000.00))) {
-
-            final BigDecimal higherContributions = annualGrossSalary.subtract(BigDecimal.valueOf(43000.00));
-            final BigDecimal higher = higherContributions.multiply(BigDecimal.valueOf(0.02));
-
-            final BigDecimal basic = BigDecimal.valueOf(43000).subtract(BigDecimal.valueOf(8060)).multiply(BigDecimal.valueOf(0.12));
-            return higher.add(basic);
+        BigDecimal remaining = employee.grossAnnualSalary();
+        BigDecimal cumulatedContribution = BigDecimal.ZERO;
+        Collections.reverse(taxBands);
+        for (TaxBand taxBand : taxBands) {
+            if(firstIsGreaterThanSecond(remaining, taxBand.lowerBound)) {
+                final BigDecimal amountInThisBand = remaining.subtract(taxBand.lowerBound);
+                assert (amountInThisBand.compareTo(BigDecimal.ZERO) == 1);
+                final BigDecimal contributionInThisBand = amountInThisBand.multiply(taxBand.taxRate);
+                cumulatedContribution = cumulatedContribution.add(contributionInThisBand);
+                remaining = remaining.subtract(amountInThisBand);
+            }
         }
-        if (firstIsGreaterThanSecond(annualGrossSalary, basicContributionsTreshold)) {
-            final BigDecimal basicContributions = annualGrossSalary.subtract(basicContributionsTreshold);
-            return basicContributions.multiply(BigDecimal.valueOf(0.12));
-        }
-
-        return BigDecimal.ZERO;
+        return cumulatedContribution;
     }
 
     private boolean firstIsGreaterThanSecond (final BigDecimal annualGrossSalary, final BigDecimal val) {
@@ -36,11 +34,11 @@ public class Year2017NationalInsuranceContributionCalculator implements National
     }
 
     private class TaxBand {
-        private final BigDecimal upperBound;
+        private final BigDecimal lowerBound;
         private final BigDecimal taxRate;
 
-        public TaxBand (final BigDecimal upperBound, final BigDecimal taxRate) {
-            this.upperBound = upperBound;
+        public TaxBand (final BigDecimal lowerBound, final BigDecimal taxRate) {
+            this.lowerBound = lowerBound;
             this.taxRate = taxRate;
         }
     }

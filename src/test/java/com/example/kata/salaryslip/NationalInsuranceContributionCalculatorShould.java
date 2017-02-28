@@ -25,7 +25,7 @@ public class NationalInsuranceContributionCalculatorShould {
 
     @Test
     public void calculate_for_no_contributions_band_higher_bound () {
-        assertThat(sut.amountFor(employeeMaking(BigDecimal.valueOf(8060.00))), is(ZERO));
+        equalBigDecimalValues(sut.amountFor(employeeMaking(BigDecimal.valueOf(8060.00))), ZERO);
     }
 
     @Test
