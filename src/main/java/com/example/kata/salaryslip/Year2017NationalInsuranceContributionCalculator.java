@@ -20,7 +20,6 @@ public class Year2017NationalInsuranceContributionCalculator implements National
         for (TaxBand taxBand : taxBands) {
             if(firstIsGreaterThanSecond(remaining, taxBand.lowerBound)) {
                 final BigDecimal amountInThisBand = remaining.subtract(taxBand.lowerBound);
-                assert (amountInThisBand.compareTo(BigDecimal.ZERO) == 1);
                 final BigDecimal contributionInThisBand = amountInThisBand.multiply(taxBand.taxRate);
                 accumulatedContribution = accumulatedContribution.add(contributionInThisBand);
                 remaining = remaining.subtract(amountInThisBand);
