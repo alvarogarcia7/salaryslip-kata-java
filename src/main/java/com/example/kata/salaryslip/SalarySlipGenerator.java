@@ -12,7 +12,11 @@ public class SalarySlipGenerator {
     public void generateFor (final Employee employee) {
         console.println("Employee ID: " + employee.employeeId());
         console.println("Employee Name: " + employee.name());
-        console.println("Gross Salary: £" + toMonthly(employee.grossAnnualSalary()) +"0");
+        console.println("Gross Salary: " + format(toMonthly(employee.grossAnnualSalary())));
+    }
+
+    private String format (final BigDecimal amount) {
+        return "£" + amount + "0";
     }
 
     private BigDecimal toMonthly (final BigDecimal grossAnnualSalary) {
