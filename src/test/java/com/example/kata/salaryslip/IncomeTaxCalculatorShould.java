@@ -43,6 +43,11 @@ public class IncomeTaxCalculatorShould {
         whenSalaryIs(valueOf(122_000), expectTaxableIncome(valueOf(122_000)));
     }
 
+    @Test
+    public void the_taxable_income_becomes_the_gross_when_the_personal_allowance_has_been_reduced_to_zero () {
+        whenSalaryIs(valueOf(130_000), expectTaxableIncome(valueOf(130_000)));
+    }
+
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
         return new Employee("", "", grossAnnualSalary);
     }
