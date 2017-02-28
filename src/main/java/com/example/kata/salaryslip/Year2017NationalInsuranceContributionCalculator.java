@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static java.math.BigDecimal.*;
+import static java.math.BigDecimal.ZERO;
+import static java.math.BigDecimal.valueOf;
 
 public class Year2017NationalInsuranceContributionCalculator implements NationalInsuranceContributionCalculator {
     @Override
@@ -15,7 +16,7 @@ public class Year2017NationalInsuranceContributionCalculator implements National
         BigDecimal remaining = employee.grossAnnualSalary();
         BigDecimal accumulatedContribution = ZERO;
         for (TaxBand taxBand : taxBands) {
-            if(firstIsGreaterThanSecond(remaining, taxBand.lowerBound)) {
+            if (firstIsGreaterThanSecond(remaining, taxBand.lowerBound)) {
                 final BigDecimal amountInThisBand = remaining.subtract(taxBand.lowerBound);
                 final BigDecimal contributionInThisBand = amountInThisBand.multiply(taxBand.taxRate);
                 accumulatedContribution = accumulatedContribution.add(contributionInThisBand);
