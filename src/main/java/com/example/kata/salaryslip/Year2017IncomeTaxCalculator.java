@@ -16,7 +16,7 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     }
 
     private BigDecimal reducePersonalAllowance (BigDecimal personalAllowance, final BigDecimal grossAnnualSalary, final BigDecimal personalAllowanceThreshold) {
-        if(firstIsGreaterThan(grossAnnualSalary, personalAllowanceThreshold)) {
+        if(BigDecimalUtils.firstIsGreaterThan(grossAnnualSalary, personalAllowanceThreshold)) {
             personalAllowance = personalAllowance.subtract(grossAnnualSalary.subtract(personalAllowanceThreshold).divide(valueOf(2)));
             personalAllowance = getNumberOrZero(personalAllowance);
         }
@@ -24,13 +24,10 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     }
 
     private BigDecimal getNumberOrZero (BigDecimal personalAllowance) {
-        if (firstIsGreaterThan(BigDecimal.ZERO, personalAllowance)) {
+        if (BigDecimalUtils.firstIsGreaterThan(BigDecimal.ZERO, personalAllowance)) {
             personalAllowance = BigDecimal.ZERO;
         }
         return personalAllowance;
     }
 
-    private static boolean firstIsGreaterThan (final BigDecimal first, final BigDecimal second) {
-        return first.compareTo(second) == 1;
-    }
 }
