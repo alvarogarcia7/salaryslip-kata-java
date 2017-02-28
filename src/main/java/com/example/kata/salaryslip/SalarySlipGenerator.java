@@ -13,7 +13,7 @@ public class SalarySlipGenerator {
         console.println("Employee ID: " + employee.employeeId());
         console.println("Employee Name: " + employee.name());
         console.println("Gross Salary: " + format(toMonthly(employee.grossAnnualSalary())));
-        console.println("National Insurance contributions: £159.40");
+        console.println("National Insurance contributions: " + format(BigDecimal.valueOf(159.40)));
     }
 
     private String format (final BigDecimal amount) {
