@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static java.math.BigDecimal.*;
+
 public class Year2017NationalInsuranceContributionCalculator implements NationalInsuranceContributionCalculator {
     @Override
     public BigDecimal amountFor (final Employee employee) {
         List<TaxBand> taxBands = getTaxBands();
 
         BigDecimal remaining = employee.grossAnnualSalary();
-        BigDecimal accumulatedContribution = BigDecimal.ZERO;
+        BigDecimal accumulatedContribution = ZERO;
         for (TaxBand taxBand : taxBands) {
             if(firstIsGreaterThanSecond(remaining, taxBand.lowerBound)) {
                 final BigDecimal amountInThisBand = remaining.subtract(taxBand.lowerBound);
@@ -25,9 +27,9 @@ public class Year2017NationalInsuranceContributionCalculator implements National
 
     private List<TaxBand> getTaxBands () {
         List<TaxBand> taxBands = new ArrayList<TaxBand>() {{
-            this.add(new TaxBand(BigDecimal.valueOf(0), BigDecimal.ZERO));
-            this.add(new TaxBand(BigDecimal.valueOf(8060), BigDecimal.valueOf(0.12)));
-            this.add(new TaxBand(BigDecimal.valueOf(43000), BigDecimal.valueOf(0.02)));
+            this.add(new TaxBand(valueOf(0), ZERO));
+            this.add(new TaxBand(valueOf(8060), valueOf(0.12)));
+            this.add(new TaxBand(valueOf(43000), valueOf(0.02)));
         }};
         Collections.reverse(taxBands);
         return taxBands;
