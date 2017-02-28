@@ -15,18 +15,18 @@ public class Year2017NationalInsuranceContributionCalculator implements National
         }};
 
         BigDecimal remaining = employee.grossAnnualSalary();
-        BigDecimal cumulatedContribution = BigDecimal.ZERO;
+        BigDecimal accumulatedContribution = BigDecimal.ZERO;
         Collections.reverse(taxBands);
         for (TaxBand taxBand : taxBands) {
             if(firstIsGreaterThanSecond(remaining, taxBand.lowerBound)) {
                 final BigDecimal amountInThisBand = remaining.subtract(taxBand.lowerBound);
                 assert (amountInThisBand.compareTo(BigDecimal.ZERO) == 1);
                 final BigDecimal contributionInThisBand = amountInThisBand.multiply(taxBand.taxRate);
-                cumulatedContribution = cumulatedContribution.add(contributionInThisBand);
+                accumulatedContribution = accumulatedContribution.add(contributionInThisBand);
                 remaining = remaining.subtract(amountInThisBand);
             }
         }
-        return cumulatedContribution;
+        return accumulatedContribution;
     }
 
     private boolean firstIsGreaterThanSecond (final BigDecimal annualGrossSalary, final BigDecimal val) {
