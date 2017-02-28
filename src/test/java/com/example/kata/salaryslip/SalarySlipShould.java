@@ -14,13 +14,15 @@ public class SalarySlipShould {
     private SalarySlipGenerator sut;
     private Employee employee;
     private NationalInsuranceContributionCalculator nationalInsuranceContributionCalculator;
+    private IncomeTaxCalculator incomeTaxCalculator;
 
     @Before
     public void setUp () {
         context = new Mockery();
         console = context.mock(Console.class);
         nationalInsuranceContributionCalculator = context.mock(NationalInsuranceContributionCalculator.class);
-        sut = new SalarySlipGenerator(console, nationalInsuranceContributionCalculator);
+        incomeTaxCalculator = context.mock(IncomeTaxCalculator.class);
+        sut = new SalarySlipGenerator(console, nationalInsuranceContributionCalculator, incomeTaxCalculator);
         employee = new Employee("12345", "John J Doe", BigDecimal.valueOf(24000.00));
     }
 
@@ -31,6 +33,7 @@ public class SalarySlipShould {
             oneOf(console).println("Employee ID: 12345");
             allowing(console).println(with(any(String.class)));
             allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
+            allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
         sut.generateFor(employee);
@@ -38,12 +41,14 @@ public class SalarySlipShould {
         context.assertIsSatisfied();
     }
 
+
     @Test
     public void print_the_name () {
         context.checking(new Expectations() {{
             oneOf(console).println("Employee Name: John J Doe");
             allowing(console).println(with(any(String.class)));
             allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
+            allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
         sut.generateFor(employee);
@@ -57,13 +62,14 @@ public class SalarySlipShould {
             oneOf(console).println("Gross Salary: £2000.00");
             allowing(console).println(with(any(String.class)));
             allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
+            allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
         sut.generateFor(employee);
 
         context.assertIsSatisfied();
     }
-    
+
     @Test
     public void print_the_national_insurance_contribution () {
         context.checking(new Expectations() {{
@@ -71,10 +77,30 @@ public class SalarySlipShould {
             allowing(console).println(with(any(String.class)));
             allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class))); will(returnValue
                     (BigDecimal.valueOf(159.40)));
+            allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
         sut.generateFor(employee);
 
         context.assertIsSatisfied();
+    }
+
+    @Test
+    public void print_the_taxable_income () {
+        context.checking(new Expectations() {{
+            oneOf(console).println("Taxable income: £1083.33");
+            allowing(console).println(with(any(String.class)));
+            allowing(incomeTaxCalculator).taxableIncomeFor(with(any(Employee.class))); will(returnValue(BigDecimal
+                    .valueOf(1083.33)));
+        }});
+
+        sut.generateFor(employee);
+
+        context.assertIsSatisfied();
+    }
+
+
+    private void allowingAnyInteractionWith (final Expectations expectations, final IncomeTaxCalculator incomeTaxCalculator) {
+        expectations.allowing(incomeTaxCalculator).taxableIncomeFor(expectations.with(expectations.any(Employee.class)));
     }
 }

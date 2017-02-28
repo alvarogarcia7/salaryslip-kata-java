@@ -6,7 +6,7 @@ public class SalarySlipGenerator {
     private final Console console;
     private final NationalInsuranceContributionCalculator nationalInsuranceContributionCalculator;
 
-    public SalarySlipGenerator (final Console console, final NationalInsuranceContributionCalculator nationalInsuranceContributionCalculator) {
+    public SalarySlipGenerator (final Console console, final NationalInsuranceContributionCalculator nationalInsuranceContributionCalculator, final IncomeTaxCalculator incomeTaxCalculator) {
         this.console = console;
         this.nationalInsuranceContributionCalculator = nationalInsuranceContributionCalculator;
     }
