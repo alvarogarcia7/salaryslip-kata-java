@@ -30,7 +30,7 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
         return personalAllowance;
     }
 
-    private boolean firstIsGreaterThan (final BigDecimal first, final BigDecimal second) {
+    private static boolean firstIsGreaterThan (final BigDecimal first, final BigDecimal second) {
         return first.compareTo(second) == 1;
     }
 }
