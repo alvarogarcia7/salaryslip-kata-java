@@ -36,8 +36,8 @@ public class Year2017NationalInsuranceContributionCalculator implements National
         return taxBands;
     }
 
-    private boolean firstIsGreaterThanSecond (final BigDecimal first, final BigDecimal val) {
-        return first.compareTo(val) == 1;
+    private boolean firstIsGreaterThanSecond (final BigDecimal first, final BigDecimal second) {
+        return first.compareTo(second) == 1;
     }
 
     private class TaxBand {
