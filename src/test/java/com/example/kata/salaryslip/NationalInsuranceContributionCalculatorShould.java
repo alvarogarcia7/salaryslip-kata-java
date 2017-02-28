@@ -30,7 +30,12 @@ public class NationalInsuranceContributionCalculatorShould {
 
     @Test
     public void calculate_12_percent_for_contributions_in_the_basic_contributions_band () {
-        assertThat(sut.amountFor(employeeMaking(BigDecimal.valueOf(8061.00))), is(BigDecimal.ONE.multiply(BigDecimal.valueOf(0.12))));
+        final BigDecimal basicContributions = BigDecimal.ONE.multiply(BigDecimal.valueOf(0.12));
+        equalBigDecimalValues(sut.amountFor(employeeMaking(BigDecimal.valueOf(8061.00))), basicContributions);
+    }
+
+    private void equalBigDecimalValues (final BigDecimal actual, final BigDecimal expected) {
+        assertThat(actual.compareTo(expected), is(0));
     }
 
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
