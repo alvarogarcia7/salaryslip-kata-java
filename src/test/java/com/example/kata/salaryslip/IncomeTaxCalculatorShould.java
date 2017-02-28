@@ -23,6 +23,11 @@ public class IncomeTaxCalculatorShould {
         assertThat(sut.taxableIncomeFor(employeeMaking(BigDecimal.valueOf(11000))), is(BigDecimal.ZERO));
     }
 
+    @Test
+    public void taxable_income_in_the_basic_rate_tax_band () {
+        assertThat(sut.taxableIncomeFor(employeeMaking(BigDecimal.valueOf(12000))), is(BigDecimal.valueOf(1000)));
+    }
+
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
         return new Employee("", "", grossAnnualSalary);
     }
