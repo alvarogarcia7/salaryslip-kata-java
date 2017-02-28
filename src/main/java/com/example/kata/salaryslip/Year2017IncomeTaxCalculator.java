@@ -7,9 +7,10 @@ import static java.math.BigDecimal.*;
 public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     @Override
     public BigDecimal taxableIncomeFor (final Employee employee) {
-        BigDecimal personalAllowance = valueOf(11000);
         final BigDecimal grossAnnualSalary = employee.grossAnnualSalary();
         final BigDecimal personalAllowanceThreshold = valueOf(100_000);
+
+        BigDecimal personalAllowance = valueOf(11000);
         personalAllowance = reducePersonalAllowance(personalAllowance, grossAnnualSalary, personalAllowanceThreshold);
         return getNumberOrZero(grossAnnualSalary.subtract(personalAllowance));
     }
