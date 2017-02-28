@@ -41,6 +41,19 @@ public class NationalInsuranceContributionCalculatorShould {
         equalBigDecimalValues(sut.amountFor(employeeMaking(BigDecimal.valueOf(43000.00))), basicContributions);
     }
 
+    @Test
+    public void
+    calculate_12_percent_for_contributions_plus_2_percent_for_higher_contributions_in_the_higher_contributions_band_lower_treshold (){
+        final BigDecimal basicContributionsAmount = BigDecimal.valueOf(43000).subtract(BigDecimal.valueOf(8060));
+        final BigDecimal basicContributions = basicContributionsAmount.multiply(BigDecimal.valueOf(0.12));
+
+        final BigDecimal higherContributionsAmount = BigDecimal.ONE;
+        final BigDecimal higherContributions = higherContributionsAmount.multiply(BigDecimal.valueOf(0.02));
+
+
+        equalBigDecimalValues(sut.amountFor(employeeMaking(BigDecimal.valueOf(43001.00))), basicContributions.add(higherContributions));
+    }
+
     private void equalBigDecimalValues (final BigDecimal actual, final BigDecimal expected) {
         assertThat(actual.compareTo(expected), is(0));
     }
