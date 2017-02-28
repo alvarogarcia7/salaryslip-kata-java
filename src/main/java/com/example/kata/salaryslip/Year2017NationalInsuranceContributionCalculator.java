@@ -13,10 +13,10 @@ public class Year2017NationalInsuranceContributionCalculator implements National
             this.add(new TaxBand(BigDecimal.valueOf(8060), BigDecimal.valueOf(0.12)));
             this.add(new TaxBand(BigDecimal.valueOf(43000), BigDecimal.valueOf(0.02)));
         }};
+        Collections.reverse(taxBands);
 
         BigDecimal remaining = employee.grossAnnualSalary();
         BigDecimal accumulatedContribution = BigDecimal.ZERO;
-        Collections.reverse(taxBands);
         for (TaxBand taxBand : taxBands) {
             if(firstIsGreaterThanSecond(remaining, taxBand.lowerBound)) {
                 final BigDecimal amountInThisBand = remaining.subtract(taxBand.lowerBound);
