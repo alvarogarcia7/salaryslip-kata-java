@@ -29,13 +29,13 @@ public class NationalInsuranceContributionCalculatorShould {
     }
 
     @Test
-    public void calculate_12_percent_for_contributions_in_the_basic_contributions_band_lower_treshold () {
+    public void calculate_12_percent_for_contributions_in_the_basic_contributions_band_lower_threshold () {
         final BigDecimal basicContributions = BigDecimal.ONE.multiply(BigDecimal.valueOf(0.12));
         equalBigDecimalValues(sut.amountFor(employeeMaking(BigDecimal.valueOf(8061.00))), basicContributions);
     }
 
     @Test
-    public void calculate_12_percent_for_contributions_in_the_basic_contributions_band_upper_treshold () {
+    public void calculate_12_percent_for_contributions_in_the_basic_contributions_band_upper_threshold () {
         final BigDecimal basicContributionsAmount = BigDecimal.valueOf(43000).subtract(BigDecimal.valueOf(8060));
         final BigDecimal basicContributions = basicContributionsAmount.multiply(BigDecimal.valueOf(0.12));
         equalBigDecimalValues(sut.amountFor(employeeMaking(BigDecimal.valueOf(43000.00))), basicContributions);
@@ -43,7 +43,7 @@ public class NationalInsuranceContributionCalculatorShould {
 
     @Test
     public void
-    calculate_12_percent_for_contributions_plus_2_percent_for_higher_contributions_in_the_higher_contributions_band_lower_treshold (){
+    calculate_12_percent_for_contributions_plus_2_percent_for_higher_contributions_in_the_higher_contributions_band_lower_threshold (){
         final BigDecimal basicContributionsAmount = BigDecimal.valueOf(43000).subtract(BigDecimal.valueOf(8060));
         final BigDecimal basicContributions = basicContributionsAmount.multiply(BigDecimal.valueOf(0.12));
 
