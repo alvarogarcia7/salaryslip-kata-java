@@ -5,15 +5,17 @@ import java.math.BigDecimal;
 public class Employee {
     private final String employeeID;
     private final String name;
+    private final BigDecimal grossAnnualSalary;
 
     public Employee (final String employeeID, final String name, final BigDecimal grossAnnualSalary) {
 
         this.employeeID = employeeID;
         this.name = name;
+        this.grossAnnualSalary = grossAnnualSalary;
     }
 
     public BigDecimal grossAnnualSalary () {
-        return null;
+        return grossAnnualSalary;
     }
 
     public String name () {
