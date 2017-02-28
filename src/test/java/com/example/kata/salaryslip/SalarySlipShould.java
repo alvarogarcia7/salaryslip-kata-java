@@ -63,6 +63,7 @@ public class SalarySlipShould {
 
         context.assertIsSatisfied();
     }
+    
     @Test
     public void print_the_national_insurance_contribution () {
         context.checking(new Expectations() {{
