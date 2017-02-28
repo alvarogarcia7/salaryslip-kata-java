@@ -32,7 +32,8 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Employee ID: 12345");
             allowing(console).println(with(any(String.class)));
-            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class))); will(returnValue
+                    (BigDecimal.valueOf(159.40)));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
@@ -47,7 +48,8 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Employee Name: John J Doe");
             allowing(console).println(with(any(String.class)));
-            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class))); will(returnValue
+                    (BigDecimal.valueOf(159.40)));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
@@ -61,7 +63,8 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Gross Salary: £2000.00");
             allowing(console).println(with(any(String.class)));
-            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class))); will(returnValue
+                    (BigDecimal.valueOf(159.40)));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
@@ -87,6 +90,12 @@ public class SalarySlipShould {
 
     @Test
     public void print_the_taxable_income () {
+
+        nationalInsuranceContributionCalculator = new Year2017NationalInsuranceContributionCalculator();
+        sut = new SalarySlipGenerator(console, nationalInsuranceContributionCalculator, incomeTaxCalculator);
+        employee = new Employee("12345", "John J Doe", BigDecimal.valueOf(24000.00));
+
+
         context.checking(new Expectations() {{
             oneOf(console).println("Taxable income: £1083.33");
             allowing(console).println(with(any(String.class)));
@@ -101,6 +110,8 @@ public class SalarySlipShould {
 
 
     private void allowingAnyInteractionWith (final Expectations expectations, final IncomeTaxCalculator incomeTaxCalculator) {
-        expectations.allowing(incomeTaxCalculator).taxableIncomeFor(expectations.with(expectations.any(Employee.class)));
+        expectations.allowing(incomeTaxCalculator).taxableIncomeFor(expectations.with(expectations.any(Employee
+                .class)));
+        expectations.will(expectations.returnValue(BigDecimal.ZERO));
     }
 }
