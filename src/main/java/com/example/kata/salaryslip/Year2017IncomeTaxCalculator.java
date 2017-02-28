@@ -25,10 +25,14 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     }
 
     private BigDecimal getNumberOrZero (BigDecimal personalAllowance) {
-        if (firstIsGreaterThan(BigDecimal.ZERO, personalAllowance)) {
+        if (isNegative(personalAllowance)) {
             personalAllowance = BigDecimal.ZERO;
         }
         return personalAllowance;
+    }
+
+    private boolean isNegative (final BigDecimal personalAllowance) {
+        return firstIsGreaterThan(BigDecimal.ZERO, personalAllowance);
     }
 
 }
