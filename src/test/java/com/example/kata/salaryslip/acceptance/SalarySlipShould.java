@@ -2,6 +2,7 @@ package com.example.kata.salaryslip.acceptance;
 
 import com.example.kata.salaryslip.Console;
 import com.example.kata.salaryslip.Employee;
+import com.example.kata.salaryslip.NationalInsuranceContributionCalculator;
 import com.example.kata.salaryslip.SalarySlipGenerator;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -18,12 +19,14 @@ public class SalarySlipShould {
     private Mockery context;
     private SalarySlipGenerator sut;
     private Employee employee;
+    private NationalInsuranceContributionCalculator nationalInsuranceContributionCalculator;
 
     @Before
     public void setUp () {
         context = new Mockery();
         console = context.mock(Console.class);
-        sut = new SalarySlipGenerator(console);
+        nationalInsuranceContributionCalculator = context.mock(NationalInsuranceContributionCalculator.class);
+        sut = new SalarySlipGenerator(console, nationalInsuranceContributionCalculator);
     }
 
 

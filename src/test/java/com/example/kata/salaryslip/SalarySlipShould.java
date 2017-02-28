@@ -13,12 +13,14 @@ public class SalarySlipShould {
     private Mockery context;
     private SalarySlipGenerator sut;
     private Employee employee;
+    private NationalInsuranceContributionCalculator nationalInsuranceContributionCalculator;
 
     @Before
     public void setUp () {
         context = new Mockery();
         console = context.mock(Console.class);
-        sut = new SalarySlipGenerator(console);
+        nationalInsuranceContributionCalculator = context.mock(NationalInsuranceContributionCalculator.class);
+        sut = new SalarySlipGenerator(console, nationalInsuranceContributionCalculator);
         employee = new Employee("12345", "John J Doe", BigDecimal.valueOf(24000.00));
     }
 
@@ -28,6 +30,7 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Employee ID: 12345");
             allowing(console).println(with(any(String.class)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
         }});
 
         sut.generateFor(employee);
@@ -40,6 +43,7 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Employee Name: John J Doe");
             allowing(console).println(with(any(String.class)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
         }});
 
         sut.generateFor(employee);
@@ -52,6 +56,7 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Gross Salary: £2000.00");
             allowing(console).println(with(any(String.class)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
         }});
 
         sut.generateFor(employee);
@@ -63,6 +68,8 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("National Insurance contributions: £159.40");
             allowing(console).println(with(any(String.class)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class))); will(returnValue
+                    (BigDecimal.valueOf(159.40)));
         }});
 
         sut.generateFor(employee);
