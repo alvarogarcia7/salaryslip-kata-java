@@ -18,7 +18,7 @@ public class IncomeTaxCalculatorShould {
     }
 
     @Test
-    public void personal_allowance () {
+    public void taxable_income_in_the_personal_allowance_tax_band () {
         assertThat(sut.taxableIncomeFor(employeeMaking(BigDecimal.ZERO)), is(BigDecimal.ZERO));
         assertThat(sut.taxableIncomeFor(employeeMaking(BigDecimal.valueOf(11000))), is(BigDecimal.ZERO));
     }
