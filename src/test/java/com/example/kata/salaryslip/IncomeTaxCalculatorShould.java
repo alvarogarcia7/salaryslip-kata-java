@@ -39,6 +39,8 @@ public class IncomeTaxCalculatorShould {
     @Test
     public void the_taxable_income_increases_by_reducing_the_personal_allowance () {
         whenSalaryIs(valueOf(105_500), expectTaxableIncome(valueOf(97_250)));
+        whenSalaryIs(valueOf(111_000), expectTaxableIncome(valueOf(105_500)));
+        whenSalaryIs(valueOf(122_000), expectTaxableIncome(valueOf(122_000)));
     }
 
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
