@@ -46,4 +46,16 @@ public class SalarySlipShould {
 
         context.assertIsSatisfied();
     }
+
+    @Test
+    public void print_the_monthly_gross_salary () {
+        context.checking(new Expectations() {{
+            oneOf(console).println("Gross Salary: £2000.00");
+            allowing(console).println(with(any(String.class)));
+        }});
+
+        sut.generateFor(employee);
+
+        context.assertIsSatisfied();
+    }
 }
