@@ -12,6 +12,9 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
         final BigDecimal personalAllowanceThreshold = valueOf(100_000);
         if(firstIsGreaterThan(grossAnnualSalary, personalAllowanceThreshold)) {
             personalAllowance = personalAllowance.subtract(grossAnnualSalary.subtract(personalAllowanceThreshold).divide(valueOf(2)));
+            if (firstIsGreaterThan(BigDecimal.ZERO, personalAllowance)) {
+                personalAllowance = BigDecimal.ZERO;
+            }
         }
         if (firstIsGreaterThan(grossAnnualSalary, personalAllowance)) {
             return grossAnnualSalary.subtract(personalAllowance);
