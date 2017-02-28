@@ -2,6 +2,7 @@ package com.example.kata.salaryslip;
 
 import java.math.BigDecimal;
 
+import static com.example.kata.salaryslip.BigDecimalUtils.*;
 import static java.math.BigDecimal.*;
 
 public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
@@ -16,7 +17,7 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     }
 
     private BigDecimal reducePersonalAllowance (BigDecimal personalAllowance, final BigDecimal grossAnnualSalary, final BigDecimal personalAllowanceThreshold) {
-        if(BigDecimalUtils.firstIsGreaterThan(grossAnnualSalary, personalAllowanceThreshold)) {
+        if(firstIsGreaterThan(grossAnnualSalary, personalAllowanceThreshold)) {
             personalAllowance = personalAllowance.subtract(grossAnnualSalary.subtract(personalAllowanceThreshold).divide(valueOf(2)));
             personalAllowance = getNumberOrZero(personalAllowance);
         }
@@ -24,7 +25,7 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     }
 
     private BigDecimal getNumberOrZero (BigDecimal personalAllowance) {
-        if (BigDecimalUtils.firstIsGreaterThan(BigDecimal.ZERO, personalAllowance)) {
+        if (firstIsGreaterThan(BigDecimal.ZERO, personalAllowance)) {
             personalAllowance = BigDecimal.ZERO;
         }
         return personalAllowance;
