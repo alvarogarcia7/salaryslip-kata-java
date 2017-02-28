@@ -33,6 +33,11 @@ public class IncomeTaxCalculatorShould {
         assertThat(sut.taxableIncomeFor(employeeMaking(BigDecimal.valueOf(100_000))), Is.is(BigDecimal.valueOf(89_000)));
     }
 
+    @Test
+    public void the_taxable_income_increases_by_reducing_the_personal_allowance () {
+        assertThat(sut.taxableIncomeFor(employeeMaking(BigDecimal.valueOf(105_500))), Is.is(BigDecimal.valueOf(97_250)));
+    }
+
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
         return new Employee("", "", grossAnnualSalary);
     }
