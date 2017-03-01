@@ -24,10 +24,15 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
 
     @Override
     public BigDecimal taxPayableFor (final Employee employee) {
-        final BigDecimal grossAnnualSalary = employee.grossAnnualSalary();
+        BigDecimal remainingGrossAnnualSalary = employee.grossAnnualSalary();
         BigDecimal taxPayable = BigDecimal.ZERO;
-        if (firstIsGreaterThan(grossAnnualSalary, BigDecimal.valueOf(11000))) {
-            taxPayable = taxPayable.add(grossAnnualSalary.subtract(BigDecimal.valueOf(11000)).multiply(BigDecimal
+        if(firstIsGreaterThan(remainingGrossAnnualSalary, BigDecimal.valueOf(43000))){
+            final BigDecimal inThisBand = remainingGrossAnnualSalary.subtract(BigDecimal.valueOf(43000));
+            taxPayable = taxPayable.add(inThisBand.multiply(BigDecimal.valueOf(0.4)));
+            remainingGrossAnnualSalary = remainingGrossAnnualSalary.subtract(inThisBand);
+        }
+        if (firstIsGreaterThan(remainingGrossAnnualSalary, BigDecimal.valueOf(11000))) {
+            taxPayable = taxPayable.add(remainingGrossAnnualSalary.subtract(BigDecimal.valueOf(11000)).multiply(BigDecimal
                     .valueOf(0.2)));
         }
         return taxPayable;
