@@ -19,7 +19,7 @@ public class SalarySlipGenerator {
         console.println("Gross Salary: " + format(toMonthly(employee.grossAnnualSalary())));
         console.println("National Insurance contributions: " + format(calculateNationalInsuranceContributions(employee)));
         console.println("Tax-free allowance: " + format(toMonthly(incomeTaxCalculator.taxFreeIncomeFor(employee))));
-        console.println("Taxable income: " + format(incomeTaxCalculator.taxableIncomeFor(employee)));
+        console.println("Taxable income: " + format(toMonthly(incomeTaxCalculator.taxableIncomeFor(employee))));
         console.println("Tax payable: " + format(toMonthly(incomeTaxCalculator.taxPayableFor(employee))));
     }
 
