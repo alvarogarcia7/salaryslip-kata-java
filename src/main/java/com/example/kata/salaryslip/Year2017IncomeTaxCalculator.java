@@ -1,6 +1,9 @@
 package com.example.kata.salaryslip;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static com.example.kata.salaryslip.BigDecimalUtils.*;
 import static java.math.BigDecimal.*;
@@ -24,18 +27,19 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
 
     @Override
     public BigDecimal taxPayableFor (final Employee employee) {
-        BigDecimal remainingGrossAnnualSalary = employee.grossAnnualSalary();
-        BigDecimal taxPayable = BigDecimal.ZERO;
-        if(firstIsGreaterThan(remainingGrossAnnualSalary, BigDecimal.valueOf(43000))){
-            final BigDecimal inThisBand = remainingGrossAnnualSalary.subtract(BigDecimal.valueOf(43000));
-            taxPayable = taxPayable.add(inThisBand.multiply(BigDecimal.valueOf(0.4)));
-            remainingGrossAnnualSalary = remainingGrossAnnualSalary.subtract(inThisBand);
+        List<TaxBand> taxBands = getTaxBands();
+
+        BigDecimal remaining = employee.grossAnnualSalary();
+        BigDecimal accumulatedContribution = ZERO;
+        for (TaxBand taxBand : taxBands) {
+            if (firstIsGreaterThan(remaining, taxBand.lowerBound())) {
+                final BigDecimal amountInThisBand = remaining.subtract(taxBand.lowerBound());
+                final BigDecimal contributionInThisBand = amountInThisBand.multiply(taxBand.taxRate());
+                accumulatedContribution = accumulatedContribution.add(contributionInThisBand);
+                remaining = remaining.subtract(amountInThisBand);
+            }
         }
-        if (firstIsGreaterThan(remainingGrossAnnualSalary, BigDecimal.valueOf(11000))) {
-            taxPayable = taxPayable.add(remainingGrossAnnualSalary.subtract(BigDecimal.valueOf(11000)).multiply(BigDecimal
-                    .valueOf(0.2)));
-        }
-        return taxPayable;
+        return accumulatedContribution;
     }
 
     private BigDecimal reducePersonalAllowance (BigDecimal personalAllowance, final BigDecimal grossAnnualSalary, final BigDecimal personalAllowanceThreshold) {
@@ -55,6 +59,16 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
 
     private boolean isNegative (final BigDecimal personalAllowance) {
         return firstIsGreaterThan(BigDecimal.ZERO, personalAllowance);
+    }
+
+    private List<TaxBand> getTaxBands () {
+        List<TaxBand> taxBands = new ArrayList<TaxBand>() {{
+            this.add(new TaxBand(valueOf(0), ZERO));
+            this.add(new TaxBand(valueOf(11_000), valueOf(0.2)));
+            this.add(new TaxBand(valueOf(43_000), valueOf(0.4)));
+        }};
+        Collections.reverse(taxBands);
+        return taxBands;
     }
 
 }
