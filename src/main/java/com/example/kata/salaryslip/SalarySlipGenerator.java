@@ -34,4 +34,8 @@ public class SalarySlipGenerator {
     private BigDecimal toMonthly (final BigDecimal grossAnnualSalary) {
         return grossAnnualSalary.divide(BigDecimal.valueOf(12));
     }
+
+    private MonthlyAmount toMonthly (final AnnualAmount grossAnnualSalary) {
+        return grossAnnualSalary.toMonthly();
+    }
 }
