@@ -28,18 +28,8 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     @Override
     public BigDecimal taxPayableFor (final Employee employee) {
         List<TaxBand> taxBands = getTaxBands();
-
-        BigDecimal remaining = employee.grossAnnualSalary();
-        BigDecimal accumulatedContribution = ZERO;
-        for (TaxBand taxBand : taxBands) {
-            if (firstIsGreaterThan(remaining, taxBand.lowerBound())) {
-                final BigDecimal amountInThisBand = remaining.subtract(taxBand.lowerBound());
-                final BigDecimal contributionInThisBand = amountInThisBand.multiply(taxBand.taxRate());
-                accumulatedContribution = accumulatedContribution.add(contributionInThisBand);
-                remaining = remaining.subtract(amountInThisBand);
-            }
-        }
-        return accumulatedContribution;
+        final CategoryOverflowCalculator calculator = new CategoryOverflowCalculator(taxBands);
+        return calculator.forAmount(employee.grossAnnualSalary());
     }
 
     private BigDecimal reducePersonalAllowance (BigDecimal personalAllowance, final BigDecimal grossAnnualSalary, final BigDecimal personalAllowanceThreshold) {
