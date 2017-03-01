@@ -5,36 +5,39 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.example.kata.salaryslip.BigDecimalUtils.*;
-import static java.math.BigDecimal.*;
+import static com.example.kata.salaryslip.BigDecimalUtils.firstIsGreaterThan;
+import static java.math.BigDecimal.ZERO;
+import static java.math.BigDecimal.valueOf;
 
 public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     @Override
-    public BigDecimal taxableIncomeFor (final Employee employee) {
-        final BigDecimal grossAnnualSalary = employee.grossAnnualSalary();
+    public AnnualAmount taxableIncomeFor (final Employee employee) {
+        final AnnualAmount grossAnnualSalary = employee.grossAnnualSalary();
         final BigDecimal personalAllowanceThreshold = valueOf(100_000);
 
         BigDecimal personalAllowance = valueOf(11000);
         personalAllowance = reducePersonalAllowance(personalAllowance, grossAnnualSalary, personalAllowanceThreshold);
-        return getNumberOrZero(grossAnnualSalary.subtract(personalAllowance));
+        return AnnualAmount.valueOf(getNumberOrZero(grossAnnualSalary.value().subtract(personalAllowance)));
     }
 
     @Override
-    public BigDecimal taxFreeIncomeFor (final Employee employee) {
-        final BigDecimal taxableIncome = taxableIncomeFor(employee);
-        return employee.grossAnnualSalary().subtract(taxableIncome);
+    public AnnualAmount taxFreeIncomeFor (final Employee employee) {
+        final BigDecimal taxableIncome = taxableIncomeFor(employee).value();
+        return AnnualAmount.valueOf(employee.grossAnnualSalary().value().subtract(taxableIncome));
     }
 
     @Override
-    public BigDecimal taxPayableFor (final Employee employee) {
+    public AnnualAmount taxPayableFor (final Employee employee) {
         List<TaxBand> taxBands = getTaxBands();
         final CategoryOverflowCalculator calculator = new CategoryOverflowCalculator(taxBands);
         return calculator.forAmount(employee.grossAnnualSalary());
     }
 
-    private BigDecimal reducePersonalAllowance (BigDecimal personalAllowance, final BigDecimal grossAnnualSalary, final BigDecimal personalAllowanceThreshold) {
-        if(firstIsGreaterThan(grossAnnualSalary, personalAllowanceThreshold)) {
-            personalAllowance = personalAllowance.subtract(grossAnnualSalary.subtract(personalAllowanceThreshold).divide(valueOf(2)));
+    private BigDecimal reducePersonalAllowance (BigDecimal personalAllowance, final AnnualAmount grossAnnualSalary, final BigDecimal personalAllowanceThreshold) {
+        if (firstIsGreaterThan(grossAnnualSalary.value(), personalAllowanceThreshold)) {
+            personalAllowance = personalAllowance.subtract(grossAnnualSalary.value().subtract
+                    (personalAllowanceThreshold)
+                    .divide(valueOf(2)));
             personalAllowance = getNumberOrZero(personalAllowance);
         }
         return personalAllowance;

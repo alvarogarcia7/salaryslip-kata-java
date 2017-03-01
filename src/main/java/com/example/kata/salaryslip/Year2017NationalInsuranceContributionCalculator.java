@@ -1,6 +1,5 @@
 package com.example.kata.salaryslip;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +9,7 @@ import static java.math.BigDecimal.valueOf;
 
 public class Year2017NationalInsuranceContributionCalculator implements NationalInsuranceContributionCalculator {
     @Override
-    public BigDecimal amountFor (final Employee employee) {
+    public AnnualAmount amountFor (final Employee employee) {
         List<TaxBand> taxBands = getTaxBands();
         return new CategoryOverflowCalculator(taxBands).forAmount(employee.grossAnnualSalary());
     }

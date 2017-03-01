@@ -23,12 +23,16 @@ public class SalarySlipGenerator {
         console.println("Tax payable: " + format(toMonthly(incomeTaxCalculator.taxPayableFor(employee))));
     }
 
-    private BigDecimal calculateNationalInsuranceContributions (Employee employee) {
+    private String format (final MonthlyAmount amount) {
+        return "£" + amount.value();
+    }
+
+    private AnnualAmount calculateNationalInsuranceContributions (Employee employee) {
         return nationalInsuranceContributionCalculator.amountFor(employee);
     }
 
-    private String format (final BigDecimal amount) {
-        return "£" + amount.setScale(2);
+    private String format (final AnnualAmount amount) {
+        return "£" + amount.value();
     }
 
     private BigDecimal toMonthly (final BigDecimal grossAnnualSalary) {

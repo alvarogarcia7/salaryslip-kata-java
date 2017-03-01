@@ -1,6 +1,5 @@
 package com.example.kata.salaryslip;
 
-import org.hamcrest.Matcher;
 import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,31 +78,34 @@ public class IncomeTaxCalculatorShould {
         return new Employee("", "", grossAnnualSalary);
     }
 
-    private Matcher<BigDecimal> expectTaxableIncome (final BigDecimal zero) {
-        return is(zero);
+    private AnnualAmount expectTaxableIncome (final BigDecimal value) {
+        return AnnualAmount.valueOf(value);
     }
 
-    private Matcher<BigDecimal> expectTaxFreeIncome (final BigDecimal zero) {
-        return is(zero);
+    private AnnualAmount expectTaxFreeIncome (final BigDecimal value) {
+        return AnnualAmount.valueOf(value);
     }
 
-    private void whenSalaryIs (final BigDecimal grossAnnualSalary, final Matcher<BigDecimal> matcher) {
-        assertThat(sut.taxableIncomeFor(employeeMaking(grossAnnualSalary)), matcher);
+    private void whenSalaryIs (final BigDecimal grossAnnualSalary, AnnualAmount expected) {
+        assertSameValueFor(expected, sut.taxableIncomeFor(employeeMaking(grossAnnualSalary)));
     }
 
-    private void whenSalaryIsTaxFree (final BigDecimal grossAnnualSalary, final Matcher<BigDecimal> matcher) {
-        assertThat(sut.taxFreeIncomeFor(employeeMaking(grossAnnualSalary)), matcher);
+    private void whenSalaryIsTaxFree (final BigDecimal grossAnnualSalary, AnnualAmount expected) {
+        assertSameValueFor(expected, sut.taxFreeIncomeFor(employeeMaking(grossAnnualSalary)));
     }
 
     private void whenSalaryIsTaxPayable (final BigDecimal grossAnnualSalary, final BigDecimal expected) {
-        final BigDecimal actual = sut.taxPayableFor(employeeMaking(grossAnnualSalary));
-        if(!areEqual(actual, expected)){
+        assertSameValueFor(AnnualAmount.valueOf(expected), sut.taxPayableFor(employeeMaking(grossAnnualSalary)));
+    }
+
+    private void assertSameValueFor (final AnnualAmount expected, final AnnualAmount actual) {
+        if (!areEqual(actual, expected)) {
             assertThat(actual, Is.is(expected));
         }
         assertThat(areEqual(actual, expected), is(true));
     }
 
-    private boolean areEqual(BigDecimal a, BigDecimal b) {
-        return a.compareTo(b) == 0;
+    private boolean areEqual (AnnualAmount a, AnnualAmount b) {
+        return a.value().compareTo(b.value()) == 0;
     }
 }

@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static com.example.kata.salaryslip.AnnualAmount.valueOf;
+
 public class SalarySlipShould {
 
     private Console console;
@@ -32,8 +34,8 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Employee ID: 12345");
             allowing(console).println(with(any(String.class)));
-            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class))); will(returnValue
-                    (BigDecimal.valueOf(159.40)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
+            will(returnValue(valueOf(BigDecimal.valueOf(159.40))));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
@@ -48,8 +50,8 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Employee Name: John J Doe");
             allowing(console).println(with(any(String.class)));
-            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class))); will(returnValue
-                    (BigDecimal.valueOf(159.40)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
+            will(returnValue(valueOf(BigDecimal.valueOf(159.40))));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
@@ -63,8 +65,8 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Gross Salary: £2000.00");
             allowing(console).println(with(any(String.class)));
-            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class))); will(returnValue
-                    (BigDecimal.valueOf(159.40)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
+            will(returnValue(valueOf(BigDecimal.valueOf(159.40))));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
@@ -78,8 +80,8 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("National Insurance contributions: £159.40");
             allowing(console).println(with(any(String.class)));
-            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class))); will(returnValue
-                    (BigDecimal.valueOf(159.40)));
+            allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
+            will(returnValue(valueOf(BigDecimal.valueOf(159.40))));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
@@ -99,13 +101,12 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Taxable income: £1083.33");
             allowing(console).println(with(any(String.class)));
-            allowing(incomeTaxCalculator).taxableIncomeFor(with(any(Employee.class))); will(returnValue(BigDecimal
-                    .valueOf(1083.33).multiply(BigDecimal.valueOf(12))));
-            allowing(incomeTaxCalculator).taxFreeIncomeFor(with(any(Employee.class))); will(returnValue(BigDecimal
-                    .valueOf(0)));
+            allowing(incomeTaxCalculator).taxableIncomeFor(with(any(Employee.class)));
+            will(returnValue(valueOf(BigDecimal.valueOf(1083.33).multiply(BigDecimal.valueOf(12)))));
+            allowing(incomeTaxCalculator).taxFreeIncomeFor(with(any(Employee.class)));
+            will(returnValue(valueOf(BigDecimal.valueOf(0))));
             allowing(incomeTaxCalculator).taxPayableFor(with(any(Employee.class)));
-            will(returnValue(BigDecimal
-                    .ZERO));
+            will(returnValue(valueOf(BigDecimal.ZERO)));
         }});
 
         sut.generateFor(employee);
@@ -125,13 +126,11 @@ public class SalarySlipShould {
             oneOf(console).println("Tax-free allowance: £916.67");
             allowing(console).println(with(any(String.class)));
             allowing(incomeTaxCalculator).taxableIncomeFor(with(any(Employee.class)));
-            will(returnValue(BigDecimal.ZERO));
+            will(returnValue(valueOf(BigDecimal.ZERO)));
             allowing(incomeTaxCalculator).taxFreeIncomeFor(with(any(Employee.class)));
-            will(returnValue(BigDecimal
-                    .valueOf(916.67).multiply(BigDecimal.valueOf(12))));
+            will(returnValue(valueOf(BigDecimal.valueOf(916.67).multiply(BigDecimal.valueOf(12)))));
             allowing(incomeTaxCalculator).taxPayableFor(with(any(Employee.class)));
-            will(returnValue(BigDecimal
-                    .ZERO));
+            will(returnValue(valueOf(BigDecimal.ZERO)));
 
 
         }});
@@ -153,12 +152,11 @@ public class SalarySlipShould {
             oneOf(console).println("Tax payable: £216.67");
             allowing(console).println(with(any(String.class)));
             allowing(incomeTaxCalculator).taxableIncomeFor(with(any(Employee.class)));
-            will(returnValue(BigDecimal.ZERO));
+            will(returnValue(valueOf(BigDecimal.ZERO)));
             allowing(incomeTaxCalculator).taxFreeIncomeFor(with(any(Employee.class)));
-            will(returnValue(BigDecimal.ZERO));
+            will(returnValue(valueOf(BigDecimal.ZERO)));
             oneOf(incomeTaxCalculator).taxPayableFor(with(any(Employee.class)));
-            will(returnValue(BigDecimal
-                    .valueOf(216.67).multiply(BigDecimal.valueOf(12))));
+            will(returnValue(valueOf(BigDecimal.valueOf(216.67).multiply(BigDecimal.valueOf(12)))));
 
         }});
 
@@ -171,14 +169,14 @@ public class SalarySlipShould {
     private void allowingAnyInteractionWith (final Expectations expectations, final IncomeTaxCalculator incomeTaxCalculator) {
         expectations.allowing(incomeTaxCalculator).taxableIncomeFor(expectations.with(expectations.any(Employee
                 .class)));
-        expectations.will(expectations.returnValue(BigDecimal.ZERO));
+        expectations.will(expectations.returnValue(valueOf(BigDecimal.ZERO)));
 
         expectations.allowing(incomeTaxCalculator).taxFreeIncomeFor(expectations.with(expectations.any(Employee
                 .class)));
-        expectations.will(expectations.returnValue(BigDecimal.ZERO));
+        expectations.will(expectations.returnValue(valueOf(BigDecimal.ZERO)));
 
         expectations.allowing(incomeTaxCalculator).taxPayableFor(expectations.with(expectations.any(Employee
                 .class)));
-        expectations.will(expectations.returnValue(BigDecimal.ZERO));
+        expectations.will(expectations.returnValue(valueOf(BigDecimal.ZERO)));
     }
 }

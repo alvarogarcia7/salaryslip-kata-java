@@ -13,8 +13,8 @@ public class CategoryOverflowCalculator {
         this.taxBands = taxBands;
     }
 
-    public BigDecimal forAmount (final BigDecimal grossAnnualSalary) {
-        BigDecimal remaining = grossAnnualSalary;
+    public AnnualAmount forAmount (final AnnualAmount grossAnnualSalary) {
+        BigDecimal remaining = grossAnnualSalary.value();
         BigDecimal accumulatedContribution = ZERO;
         for (TaxBand taxBand : taxBands) {
             if (firstIsGreaterThan(remaining, taxBand.lowerBound())) {
@@ -24,6 +24,6 @@ public class CategoryOverflowCalculator {
                 remaining = remaining.subtract(amountInThisBand);
             }
         }
-        return accumulatedContribution;
+        return AnnualAmount.valueOf(accumulatedContribution);
     }
 }

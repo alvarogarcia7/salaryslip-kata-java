@@ -1,11 +1,9 @@
 package com.example.kata.salaryslip;
 
-import java.math.BigDecimal;
-
 public interface IncomeTaxCalculator {
-    BigDecimal taxableIncomeFor (Employee employee);
+    AnnualAmount taxableIncomeFor (Employee employee);
 
-    BigDecimal taxFreeIncomeFor (Employee employee);
+    AnnualAmount taxFreeIncomeFor (Employee employee);
 
-    BigDecimal taxPayableFor (Employee employee);
+    AnnualAmount taxPayableFor (Employee employee);
 }
