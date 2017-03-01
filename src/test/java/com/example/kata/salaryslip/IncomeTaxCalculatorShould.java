@@ -61,6 +61,11 @@ public class IncomeTaxCalculatorShould {
         whenSalaryIsTaxPayable(valueOf(11000), expectTaxPayable(valueOf(0)));
     }
 
+    @Test
+    public void tax_payable_in_the_basic_rate_band() {
+        whenSalaryIsTaxPayable(valueOf(12_000), expectTaxPayable(valueOf(200)));
+    }
+
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
         return new Employee("", "", grossAnnualSalary);
     }
