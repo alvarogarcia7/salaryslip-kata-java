@@ -24,7 +24,7 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
 
     @Override
     public BigDecimal taxPayableFor (final Employee employee) {
-        return null;
+        return BigDecimal.ZERO;
     }
 
     private BigDecimal reducePersonalAllowance (BigDecimal personalAllowance, final BigDecimal grossAnnualSalary, final BigDecimal personalAllowanceThreshold) {
