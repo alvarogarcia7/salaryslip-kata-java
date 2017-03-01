@@ -54,6 +54,11 @@ public class IncomeTaxCalculatorShould {
         whenSalaryIsTaxFree(valueOf(105_500), expectTaxFreeIncome(valueOf(105_500).subtract(BigDecimal.valueOf(97_250))));
     }
 
+    @Test
+    public void tax_payable_in_the_personal_allowance_band () {
+        whenSalaryIsTaxPayable(valueOf(0), expectTaxPayable(valueOf(0)));
+    }
+
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
         return new Employee("", "", grossAnnualSalary);
     }
@@ -61,8 +66,13 @@ public class IncomeTaxCalculatorShould {
     private Matcher<BigDecimal> expectTaxableIncome (final BigDecimal zero) {
         return Is.is(zero);
     }
+
     private Matcher<BigDecimal> expectTaxFreeIncome (final BigDecimal zero) {
         return Is.is(zero);
+    }
+
+    private Matcher<BigDecimal> expectTaxPayable (final BigDecimal amount) {
+        return Is.is(amount);
     }
 
     private void whenSalaryIs (final BigDecimal grossAnnualSalary, final Matcher<BigDecimal> matcher) {
@@ -71,5 +81,9 @@ public class IncomeTaxCalculatorShould {
 
     private void whenSalaryIsTaxFree (final BigDecimal grossAnnualSalary, final Matcher<BigDecimal> matcher) {
         assertThat(sut.taxFreeIncomeFor(employeeMaking(grossAnnualSalary)), matcher);
+    }
+
+    private void whenSalaryIsTaxPayable (final BigDecimal grossAnnualSalary, final Matcher<BigDecimal> matcher) {
+        assertThat(sut.taxPayableFor(employeeMaking(grossAnnualSalary)), matcher);
     }
 }
