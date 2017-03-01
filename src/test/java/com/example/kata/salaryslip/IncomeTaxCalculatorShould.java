@@ -1,7 +1,6 @@
 package com.example.kata.salaryslip;
 
 import org.hamcrest.Matcher;
-import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,6 +9,7 @@ import java.math.BigDecimal;
 import static java.math.BigDecimal.ZERO;
 import static java.math.BigDecimal.valueOf;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class IncomeTaxCalculatorShould {
 
@@ -56,14 +56,14 @@ public class IncomeTaxCalculatorShould {
 
     @Test
     public void tax_payable_in_the_personal_allowance_band () {
-        whenSalaryIsTaxPayable(valueOf(0), expectTaxPayable(valueOf(0)));
-        whenSalaryIsTaxPayable(valueOf(5000), expectTaxPayable(valueOf(0)));
-        whenSalaryIsTaxPayable(valueOf(11000), expectTaxPayable(valueOf(0)));
+        whenSalaryIsTaxPayable(valueOf(0), valueOf(0));
+        whenSalaryIsTaxPayable(valueOf(5000), valueOf(0));
+        whenSalaryIsTaxPayable(valueOf(11000), valueOf(0));
     }
 
     @Test
     public void tax_payable_in_the_basic_rate_band() {
-        whenSalaryIsTaxPayable(valueOf(12_000), expectTaxPayable(valueOf(200)));
+        whenSalaryIsTaxPayable(valueOf(12_000), valueOf(200));
     }
 
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
@@ -71,15 +71,11 @@ public class IncomeTaxCalculatorShould {
     }
 
     private Matcher<BigDecimal> expectTaxableIncome (final BigDecimal zero) {
-        return Is.is(zero);
+        return is(zero);
     }
 
     private Matcher<BigDecimal> expectTaxFreeIncome (final BigDecimal zero) {
-        return Is.is(zero);
-    }
-
-    private Matcher<BigDecimal> expectTaxPayable (final BigDecimal amount) {
-        return Is.is(amount);
+        return is(zero);
     }
 
     private void whenSalaryIs (final BigDecimal grossAnnualSalary, final Matcher<BigDecimal> matcher) {
@@ -90,7 +86,12 @@ public class IncomeTaxCalculatorShould {
         assertThat(sut.taxFreeIncomeFor(employeeMaking(grossAnnualSalary)), matcher);
     }
 
-    private void whenSalaryIsTaxPayable (final BigDecimal grossAnnualSalary, final Matcher<BigDecimal> matcher) {
-        assertThat(sut.taxPayableFor(employeeMaking(grossAnnualSalary)), matcher);
+    private void whenSalaryIsTaxPayable (final BigDecimal grossAnnualSalary, final BigDecimal expected) {
+        final BigDecimal actual = sut.taxPayableFor(employeeMaking(grossAnnualSalary));
+        assertThat(areEqual(actual, expected), is(true));
+    }
+
+    private boolean areEqual(BigDecimal a, BigDecimal b) {
+        return a.compareTo(b) == 0;
     }
 }
