@@ -6,4 +6,6 @@ public interface IncomeTaxCalculator {
     BigDecimal taxableIncomeFor (Employee employee);
 
     BigDecimal taxFreeIncomeFor (Employee employee);
+
+    BigDecimal taxPayableFor (Employee employee);
 }
