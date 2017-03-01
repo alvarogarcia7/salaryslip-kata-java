@@ -70,6 +70,7 @@ public class IncomeTaxCalculatorShould {
     @Test
     public void tax_payable_in_the_higher_rate_band() {
         whenSalaryIsTaxPayable(valueOf(45_000), valueOf(7_200));
+        whenSalaryIsTaxPayable(valueOf(50_000), valueOf(9_200));
     }
 
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
