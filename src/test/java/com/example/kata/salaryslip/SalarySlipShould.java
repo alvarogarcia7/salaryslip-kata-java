@@ -99,7 +99,8 @@ public class SalarySlipShould {
         context.checking(new Expectations() {{
             oneOf(console).println("Taxable income: £1083.33");
             allowing(console).println(with(any(String.class)));
-            allowing(incomeTaxCalculator).taxableIncomeFor(with(any(Employee.class))); will(returnValue(BigDecimal.valueOf(1083.33)));
+            allowing(incomeTaxCalculator).taxableIncomeFor(with(any(Employee.class))); will(returnValue(BigDecimal
+                    .valueOf(1083.33).multiply(BigDecimal.valueOf(12))));
             allowing(incomeTaxCalculator).taxFreeIncomeFor(with(any(Employee.class))); will(returnValue(BigDecimal
                     .valueOf(0)));
             allowing(incomeTaxCalculator).taxPayableFor(with(any(Employee.class)));
