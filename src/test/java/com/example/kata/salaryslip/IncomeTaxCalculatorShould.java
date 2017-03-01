@@ -48,6 +48,11 @@ public class IncomeTaxCalculatorShould {
         whenSalaryIs(valueOf(130_000), expectTaxableIncome(valueOf(130_000)));
     }
 
+    @Test
+    public void the_taxfree_income_is_the_part_not_covered_by_the_taxable_income () {
+        whenSalaryIsTaxFree(valueOf(130_000), expectTaxFreeIncome(valueOf(0)));
+    }
+
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
         return new Employee("", "", grossAnnualSalary);
     }
@@ -55,9 +60,15 @@ public class IncomeTaxCalculatorShould {
     private Matcher<BigDecimal> expectTaxableIncome (final BigDecimal zero) {
         return Is.is(zero);
     }
+    private Matcher<BigDecimal> expectTaxFreeIncome (final BigDecimal zero) {
+        return Is.is(zero);
+    }
 
     private void whenSalaryIs (final BigDecimal grossAnnualSalary, final Matcher<BigDecimal> matcher) {
         assertThat(sut.taxableIncomeFor(employeeMaking(grossAnnualSalary)), matcher);
     }
 
+    private void whenSalaryIsTaxFree (final BigDecimal grossAnnualSalary, final Matcher<BigDecimal> matcher) {
+        assertThat(sut.taxFreeIncomeFor(employeeMaking(grossAnnualSalary)), matcher);
+    }
 }

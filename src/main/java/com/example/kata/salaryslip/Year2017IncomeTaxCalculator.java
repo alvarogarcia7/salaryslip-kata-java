@@ -16,6 +16,11 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
         return getNumberOrZero(grossAnnualSalary.subtract(personalAllowance));
     }
 
+    @Override
+    public BigDecimal taxFreeIncomeFor (final Employee employee) {
+        return null;
+    }
+
     private BigDecimal reducePersonalAllowance (BigDecimal personalAllowance, final BigDecimal grossAnnualSalary, final BigDecimal personalAllowanceThreshold) {
         if(firstIsGreaterThan(grossAnnualSalary, personalAllowanceThreshold)) {
             personalAllowance = personalAllowance.subtract(grossAnnualSalary.subtract(personalAllowanceThreshold).divide(valueOf(2)));
