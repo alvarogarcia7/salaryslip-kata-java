@@ -18,7 +18,8 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
 
     @Override
     public BigDecimal taxFreeIncomeFor (final Employee employee) {
-        return BigDecimal.ZERO;
+        final BigDecimal taxableIncome = taxableIncomeFor(employee);
+        return employee.grossAnnualSalary().subtract(taxableIncome);
     }
 
     private BigDecimal reducePersonalAllowance (BigDecimal personalAllowance, final BigDecimal grossAnnualSalary, final BigDecimal personalAllowanceThreshold) {
