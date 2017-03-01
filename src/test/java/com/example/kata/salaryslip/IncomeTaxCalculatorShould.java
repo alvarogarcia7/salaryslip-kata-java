@@ -51,6 +51,7 @@ public class IncomeTaxCalculatorShould {
     @Test
     public void the_taxfree_income_is_the_part_not_covered_by_the_taxable_income () {
         whenSalaryIsTaxFree(valueOf(130_000), expectTaxFreeIncome(valueOf(0)));
+        whenSalaryIsTaxFree(valueOf(105_500), expectTaxFreeIncome(valueOf(105_500).subtract(BigDecimal.valueOf(97_250))));
     }
 
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
