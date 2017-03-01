@@ -57,6 +57,8 @@ public class IncomeTaxCalculatorShould {
     @Test
     public void tax_payable_in_the_personal_allowance_band () {
         whenSalaryIsTaxPayable(valueOf(0), expectTaxPayable(valueOf(0)));
+        whenSalaryIsTaxPayable(valueOf(5000), expectTaxPayable(valueOf(0)));
+        whenSalaryIsTaxPayable(valueOf(11000), expectTaxPayable(valueOf(0)));
     }
 
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
