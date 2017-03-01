@@ -20,6 +20,7 @@ public class SalarySlipGenerator {
         console.println("National Insurance contributions: " + format(calculateNationalInsuranceContributions(employee)));
         console.println("Tax-free allowance: " + format(toMonthly(incomeTaxCalculator.taxFreeIncomeFor(employee))));
         console.println("Taxable income: " + format(incomeTaxCalculator.taxableIncomeFor(employee)));
+        console.println("Tax payable: " + format(toMonthly(incomeTaxCalculator.taxPayableFor(employee))));
     }
 
     private BigDecimal calculateNationalInsuranceContributions (Employee employee) {

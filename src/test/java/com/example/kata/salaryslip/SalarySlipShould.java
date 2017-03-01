@@ -102,6 +102,9 @@ public class SalarySlipShould {
             allowing(incomeTaxCalculator).taxableIncomeFor(with(any(Employee.class))); will(returnValue(BigDecimal.valueOf(1083.33)));
             allowing(incomeTaxCalculator).taxFreeIncomeFor(with(any(Employee.class))); will(returnValue(BigDecimal
                     .valueOf(0)));
+            allowing(incomeTaxCalculator).taxPayableFor(with(any(Employee.class)));
+            will(returnValue(BigDecimal
+                    .ZERO));
         }});
 
         sut.generateFor(employee);
@@ -125,6 +128,10 @@ public class SalarySlipShould {
             allowing(incomeTaxCalculator).taxFreeIncomeFor(with(any(Employee.class)));
             will(returnValue(BigDecimal
                     .valueOf(916.67).multiply(BigDecimal.valueOf(12))));
+            allowing(incomeTaxCalculator).taxPayableFor(with(any(Employee.class)));
+            will(returnValue(BigDecimal
+                    .ZERO));
+
 
         }});
 
@@ -166,6 +173,10 @@ public class SalarySlipShould {
         expectations.will(expectations.returnValue(BigDecimal.ZERO));
 
         expectations.allowing(incomeTaxCalculator).taxFreeIncomeFor(expectations.with(expectations.any(Employee
+                .class)));
+        expectations.will(expectations.returnValue(BigDecimal.ZERO));
+
+        expectations.allowing(incomeTaxCalculator).taxPayableFor(expectations.with(expectations.any(Employee
                 .class)));
         expectations.will(expectations.returnValue(BigDecimal.ZERO));
     }
