@@ -89,8 +89,8 @@ public class IncomeTaxCalculatorShould {
             this.employee = employee;
         }
 
-        public void expectTaxableIncome (final BigDecimal zero) {
-            annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(zero), sut.taxableIncomeFor(employee));
+        public void expectTaxableIncome (final BigDecimal expected) {
+            annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(expected), sut.taxableIncomeFor(employee));
         }
 
         public void expectTaxFreeIncome (final BigDecimal expected) {
