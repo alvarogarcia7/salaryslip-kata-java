@@ -35,8 +35,7 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
         BigDecimal reduction = BigDecimal.ZERO;
         final BigDecimal personalAllowanceReductionThreshold = BigDecimal.valueOf(100_000);
         if(firstIsGreaterThan(grossAnnual.value(), personalAllowanceReductionThreshold)){
-            final BigDecimal personalAllowanceThreshold = personalAllowanceReductionThreshold;
-            reduction = grossAnnual.value().subtract(personalAllowanceThreshold).divide(BigDecimal.valueOf(2));
+            reduction = grossAnnual.value().subtract(personalAllowanceReductionThreshold).divide(BigDecimal.valueOf(2));
             reduction = reduction.min(PERSONAL_ALLOWANCE);
         }
         List<TaxBand> taxBands = getTaxBands(reduction);
