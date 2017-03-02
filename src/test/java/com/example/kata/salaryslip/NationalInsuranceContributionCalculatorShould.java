@@ -5,8 +5,9 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static java.math.BigDecimal.*;
+import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.ZERO;
+import static java.math.BigDecimal.valueOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -53,7 +54,8 @@ public class NationalInsuranceContributionCalculatorShould {
         final BigDecimal higherContributions = higherContributionsAmount.multiply(valueOf(0.02));
 
 
-        equalBigDecimalValues(sut.amountFor(employeeMaking(valueOf(43001.00))), basicContributions.add(higherContributions));
+        equalBigDecimalValues(sut.amountFor(employeeMaking(valueOf(43001.00))), basicContributions.add
+                (higherContributions));
     }
 
     @Test
@@ -71,7 +73,7 @@ public class NationalInsuranceContributionCalculatorShould {
     }
 
     private void equalBigDecimalValues (final AnnualAmount actual, final BigDecimal expected) {
-        assertThat(actual.value().compareTo(expected), is(0));
+        assertThat(actual.isEqual(AnnualAmount.valueOf(expected)), is(true));
     }
 
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
