@@ -104,8 +104,4 @@ public class IncomeTaxCalculatorShould {
         }
         assertThat(actual.isEqual(expected), is(true));
     }
-
-    private boolean areEqual (AnnualAmount a, AnnualAmount b) {
-        return a.value().compareTo(b.value()) == 0;
-    }
 }
