@@ -99,10 +99,10 @@ public class IncomeTaxCalculatorShould {
     }
 
     private void assertSameValueFor (final AnnualAmount expected, final AnnualAmount actual) {
-        if (!areEqual(actual, expected)) {
+        if (!actual.isEqual(expected)) {
             assertThat(actual, Is.is(expected));
         }
-        assertThat(areEqual(actual, expected), is(true));
+        assertThat(actual.isEqual(expected), is(true));
     }
 
     private boolean areEqual (AnnualAmount a, AnnualAmount b) {

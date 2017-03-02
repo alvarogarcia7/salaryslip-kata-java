@@ -41,4 +41,8 @@ public class AnnualAmount {
     public String toString () {
         return value.toString();
     }
+
+    public boolean isEqual (final AnnualAmount expected) {
+        return this.value.compareTo(expected.value) == 0;
+    }
 }
