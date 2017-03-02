@@ -30,8 +30,7 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     @Override
     public AnnualAmount taxPayableFor (final Employee employee) {
         AnnualAmount grossAnnual = employee.grossAnnualSalary();
-        final BigDecimal personalAllowanceReduction = reducePersonalAllowance(
-                grossAnnual);
+        final BigDecimal personalAllowanceReduction = reducePersonalAllowance(grossAnnual);
         List<TaxBand> taxBands = getTaxBands(PERSONAL_ALLOWANCE.subtract(personalAllowanceReduction));
         final CategoryOverflowCalculator calculator = new CategoryOverflowCalculator(taxBands);
         return calculator.forAmount(grossAnnual);
