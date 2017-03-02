@@ -71,6 +71,7 @@ public class IncomeTaxCalculatorShould {
         anEmployeeMaking(valueOf(45_000)).expectTaxPayable(valueOf(7_200));
         anEmployeeMaking(valueOf(50_000)).expectTaxPayable(valueOf(9_200));
         anEmployeeMaking(valueOf(150_000)).expectTaxPayable(valueOf(53_600));
+        anEmployeeMaking(valueOf(160_000)).expectTaxPayable(valueOf(58_100));
     }
 
     private TestCase anEmployeeMaking (final BigDecimal grossAnnualSalary) {
