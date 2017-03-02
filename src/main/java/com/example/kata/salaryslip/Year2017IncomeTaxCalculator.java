@@ -17,8 +17,6 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     @Override
     public AnnualAmount taxableIncomeFor (final Employee employee) {
         final AnnualAmount grossAnnualSalary = employee.grossAnnualSalary();
-        final BigDecimal personalAllowanceThreshold = valueOf(100_000);
-
         BigDecimal personalAllowance = reducePersonalAllowance(grossAnnualSalary);
         return AnnualAmount.valueOf(getNumberOrZero(grossAnnualSalary.value().subtract(personalAllowance)));
     }
