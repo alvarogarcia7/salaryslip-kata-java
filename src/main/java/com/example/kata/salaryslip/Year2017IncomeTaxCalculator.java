@@ -33,9 +33,10 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     public AnnualAmount taxPayableFor (final Employee employee) {
         AnnualAmount grossAnnual = employee.grossAnnualSalary();
         BigDecimal reduction = BigDecimal.ZERO;
-        if(firstIsGreaterThan(grossAnnual.value(), BigDecimal.valueOf(100_000))){
+        final BigDecimal personalAllowanceReductionThreshold = BigDecimal.valueOf(100_000);
+        if(firstIsGreaterThan(grossAnnual.value(), personalAllowanceReductionThreshold)){
             final BigDecimal defaultPersonalAllowance = PERSONAL_ALLOWANCE;
-            final BigDecimal personalAllowanceThreshold = BigDecimal.valueOf(100_000);
+            final BigDecimal personalAllowanceThreshold = personalAllowanceReductionThreshold;
             reduction = grossAnnual.value().subtract(personalAllowanceThreshold).divide(BigDecimal.valueOf(2));
             reduction = reduction.min(defaultPersonalAllowance);
         }
