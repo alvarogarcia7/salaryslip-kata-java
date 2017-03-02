@@ -10,12 +10,15 @@ import static java.math.BigDecimal.ZERO;
 import static java.math.BigDecimal.valueOf;
 
 public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
+
+    private static final BigDecimal PERSONAL_ALLOWANCE = valueOf(11000);
+
     @Override
     public AnnualAmount taxableIncomeFor (final Employee employee) {
         final AnnualAmount grossAnnualSalary = employee.grossAnnualSalary();
         final BigDecimal personalAllowanceThreshold = valueOf(100_000);
 
-        BigDecimal personalAllowance = valueOf(11000);
+        BigDecimal personalAllowance = PERSONAL_ALLOWANCE;
         personalAllowance = reducePersonalAllowance(personalAllowance, grossAnnualSalary, personalAllowanceThreshold);
         return AnnualAmount.valueOf(getNumberOrZero(grossAnnualSalary.value().subtract(personalAllowance)));
     }
@@ -31,7 +34,7 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
         AnnualAmount grossAnnual = employee.grossAnnualSalary();
         BigDecimal reduction = BigDecimal.ZERO;
         if(firstIsGreaterThan(grossAnnual.value(), BigDecimal.valueOf(100_000))){
-            final BigDecimal defaultPersonalAllowance = BigDecimal.valueOf(11000);
+            final BigDecimal defaultPersonalAllowance = PERSONAL_ALLOWANCE;
             final BigDecimal personalAllowanceThreshold = BigDecimal.valueOf(100_000);
             reduction = grossAnnual.value().subtract(personalAllowanceThreshold).divide(BigDecimal.valueOf(2));
             reduction = reduction.min(defaultPersonalAllowance);
