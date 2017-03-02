@@ -21,30 +21,30 @@ public class IncomeTaxCalculatorShould {
 
     @Test
     public void taxable_income_in_the_personal_allowance_tax_band () {
-        whenSalaryIs(ZERO, expectTaxableIncome(ZERO));
-        whenSalaryIs(valueOf(11000), expectTaxableIncome(ZERO));
+        anEmployeeMaking(ZERO).expectTaxableIncome(ZERO);
+        anEmployeeMaking(valueOf(11000)).expectTaxableIncome(ZERO);
     }
 
     @Test
     public void taxable_income_in_the_basic_rate_tax_band () {
-        whenSalaryIs(valueOf(12000), expectTaxableIncome(valueOf(1000)));
+        anEmployeeMaking(valueOf(12000)).expectTaxableIncome(valueOf(1000));
     }
 
     @Test
     public void taxable_income_under_100k () {
-        whenSalaryIs(valueOf(100_000), expectTaxableIncome(valueOf(89_000)));
+        anEmployeeMaking(valueOf(100_000)).expectTaxableIncome(valueOf(89_000));
     }
 
     @Test
     public void the_taxable_income_increases_by_reducing_the_personal_allowance () {
-        whenSalaryIs(valueOf(105_500), expectTaxableIncome(valueOf(97_250)));
-        whenSalaryIs(valueOf(111_000), expectTaxableIncome(valueOf(105_500)));
-        whenSalaryIs(valueOf(122_000), expectTaxableIncome(valueOf(122_000)));
+        anEmployeeMaking(valueOf(105_500)).expectTaxableIncome(valueOf(97_250));
+        anEmployeeMaking(valueOf(111_000)).expectTaxableIncome(valueOf(105_500));
+        anEmployeeMaking(valueOf(122_000)).expectTaxableIncome(valueOf(122_000));
     }
 
     @Test
     public void the_taxable_income_becomes_the_gross_when_the_personal_allowance_has_been_reduced_to_zero () {
-        whenSalaryIs(valueOf(130_000), expectTaxableIncome(valueOf(130_000)));
+        anEmployeeMaking(valueOf(130_000)).expectTaxableIncome(valueOf(130_000));
     }
 
     @Test
@@ -85,8 +85,8 @@ public class IncomeTaxCalculatorShould {
         return AnnualAmount.valueOf(value);
     }
 
-    private void whenSalaryIs (final BigDecimal grossAnnualSalary, AnnualAmount expected) {
-        annualAmountHelper.assertSameValueFor(expected, sut.taxableIncomeFor(employeeMaking(grossAnnualSalary)));
+    private TestShell anEmployeeMaking (final BigDecimal grossAnnualSalary) {
+        return new TestShell(employeeMaking(grossAnnualSalary));
     }
 
     private void whenSalaryIsTaxFree (final BigDecimal grossAnnualSalary, AnnualAmount expected) {
@@ -95,5 +95,18 @@ public class IncomeTaxCalculatorShould {
 
     private void whenSalaryIsTaxPayable (final BigDecimal grossAnnualSalary, final BigDecimal expected) {
         annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(expected), sut.taxPayableFor(employeeMaking(grossAnnualSalary)));
+    }
+
+    private class TestShell {
+        private final Employee employee;
+
+        public TestShell (final Employee employee) {
+            this.employee = employee;
+        }
+
+        public void expectTaxableIncome (final BigDecimal zero) {
+            annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(zero), sut.taxableIncomeFor(employee));
+
+        }
     }
 }
