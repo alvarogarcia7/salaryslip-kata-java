@@ -77,10 +77,6 @@ public class IncomeTaxCalculatorShould {
         return new Employee("", "", grossAnnualSalary);
     }
 
-    private AnnualAmount expectTaxableIncome (final BigDecimal value) {
-        return AnnualAmount.valueOf(value);
-    }
-
     private AnnualAmount expectTaxFreeIncome (final BigDecimal value) {
         return AnnualAmount.valueOf(value);
     }
