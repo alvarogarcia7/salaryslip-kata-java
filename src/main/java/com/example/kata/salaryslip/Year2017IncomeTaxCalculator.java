@@ -28,9 +28,17 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
 
     @Override
     public AnnualAmount taxPayableFor (final Employee employee) {
-        List<TaxBand> taxBands = getTaxBands();
+        AnnualAmount grossAnnual = employee.grossAnnualSalary();
+        BigDecimal reduction = BigDecimal.ZERO;
+        if(firstIsGreaterThan(grossAnnual.value(), BigDecimal.valueOf(100_000))){
+            final BigDecimal defaultPersonalAllowance = BigDecimal.valueOf(11000);
+            final BigDecimal personalAllowanceThreshold = BigDecimal.valueOf(100_000);
+            reduction = grossAnnual.value().subtract(personalAllowanceThreshold).divide(BigDecimal.valueOf(2));
+            reduction = reduction.min(defaultPersonalAllowance);
+        }
+        List<TaxBand> taxBands = getTaxBands(reduction);
         final CategoryOverflowCalculator calculator = new CategoryOverflowCalculator(taxBands);
-        return calculator.forAmount(employee.grossAnnualSalary());
+        return calculator.forAmount(grossAnnual);
     }
 
     private BigDecimal reducePersonalAllowance (BigDecimal personalAllowance, final AnnualAmount grossAnnualSalary, final BigDecimal personalAllowanceThreshold) {
@@ -54,11 +62,11 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
         return firstIsGreaterThan(BigDecimal.ZERO, personalAllowance);
     }
 
-    private List<TaxBand> getTaxBands () {
+    private List<TaxBand> getTaxBands (BigDecimal initial) {
         List<TaxBand> taxBands = new ArrayList<TaxBand>() {{
             this.add(new TaxBand(valueOf(0), ZERO));
-            this.add(new TaxBand(valueOf(11_000), valueOf(0.2)));
-            this.add(new TaxBand(valueOf(43_000), valueOf(0.4)));
+            this.add(new TaxBand(valueOf(11_000).subtract(initial), valueOf(0.2)));
+            this.add(new TaxBand(valueOf(43_000).subtract(initial), valueOf(0.4)));
         }};
         Collections.reverse(taxBands);
         return taxBands;
