@@ -70,7 +70,7 @@ public class IncomeTaxCalculatorShould {
     public void tax_payable_in_the_higher_rate_band() {
         anEmployeeMaking(valueOf(45_000)).expectTaxPayable(valueOf(7_200));
         anEmployeeMaking(valueOf(50_000)).expectTaxPayable(valueOf(9_200));
-//        anEmployeeMaking(valueOf(150_000), valueOf(53_600));
+        anEmployeeMaking(valueOf(150_000)).expectTaxPayable(valueOf(53_600));
     }
 
     private TestCase anEmployeeMaking (final BigDecimal grossAnnualSalary) {
