@@ -1,6 +1,5 @@
 package com.example.kata.salaryslip;
 
-import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,10 +7,10 @@ import java.math.BigDecimal;
 
 import static java.math.BigDecimal.ZERO;
 import static java.math.BigDecimal.valueOf;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 
 public class IncomeTaxCalculatorShould {
+
+    private AnnualAmountHelper annualAmountHelper = new AnnualAmountHelper();
 
     private IncomeTaxCalculator sut;
 
@@ -87,21 +86,14 @@ public class IncomeTaxCalculatorShould {
     }
 
     private void whenSalaryIs (final BigDecimal grossAnnualSalary, AnnualAmount expected) {
-        assertSameValueFor(expected, sut.taxableIncomeFor(employeeMaking(grossAnnualSalary)));
+        annualAmountHelper.assertSameValueFor(expected, sut.taxableIncomeFor(employeeMaking(grossAnnualSalary)));
     }
 
     private void whenSalaryIsTaxFree (final BigDecimal grossAnnualSalary, AnnualAmount expected) {
-        assertSameValueFor(expected, sut.taxFreeIncomeFor(employeeMaking(grossAnnualSalary)));
+        annualAmountHelper.assertSameValueFor(expected, sut.taxFreeIncomeFor(employeeMaking(grossAnnualSalary)));
     }
 
     private void whenSalaryIsTaxPayable (final BigDecimal grossAnnualSalary, final BigDecimal expected) {
-        assertSameValueFor(AnnualAmount.valueOf(expected), sut.taxPayableFor(employeeMaking(grossAnnualSalary)));
-    }
-
-    private void assertSameValueFor (final AnnualAmount expected, final AnnualAmount actual) {
-        if (!actual.isEqual(expected)) {
-            assertThat(actual, Is.is(expected));
-        }
-        assertThat(actual.isEqual(expected), is(true));
+        annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(expected), sut.taxPayableFor(employeeMaking(grossAnnualSalary)));
     }
 }
