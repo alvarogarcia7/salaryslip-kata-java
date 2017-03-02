@@ -55,22 +55,22 @@ public class IncomeTaxCalculatorShould {
 
     @Test
     public void tax_payable_in_the_personal_allowance_band () {
-        whenSalaryIsTaxPayable(valueOf(0), valueOf(0));
-        whenSalaryIsTaxPayable(valueOf(5000), valueOf(0));
-        whenSalaryIsTaxPayable(valueOf(11000), valueOf(0));
+        anEmployeeMaking(valueOf(0)).expectTaxPayable(valueOf(0));
+        anEmployeeMaking(valueOf(5000)).expectTaxPayable(valueOf(0));
+        anEmployeeMaking(valueOf(11000)).expectTaxPayable(valueOf(0));
     }
 
     @Test
     public void tax_payable_in_the_basic_rate_band() {
-        whenSalaryIsTaxPayable(valueOf(12_000), valueOf(200));
-        whenSalaryIsTaxPayable(valueOf(40_000), valueOf(5_800));
+        anEmployeeMaking(valueOf(12_000)).expectTaxPayable(valueOf(200));
+        anEmployeeMaking(valueOf(40_000)).expectTaxPayable(valueOf(5_800));
     }
 
     @Test
     public void tax_payable_in_the_higher_rate_band() {
-        whenSalaryIsTaxPayable(valueOf(45_000), valueOf(7_200));
-        whenSalaryIsTaxPayable(valueOf(50_000), valueOf(9_200));
-//        whenSalaryIsTaxPayable(valueOf(150_000), valueOf(53_600));
+        anEmployeeMaking(valueOf(45_000)).expectTaxPayable(valueOf(7_200));
+        anEmployeeMaking(valueOf(50_000)).expectTaxPayable(valueOf(9_200));
+//        anEmployeeMaking(valueOf(150_000), valueOf(53_600));
     }
 
     private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
@@ -85,9 +85,6 @@ public class IncomeTaxCalculatorShould {
         return new TestShell(employeeMaking(grossAnnualSalary));
     }
 
-    private void whenSalaryIsTaxPayable (final BigDecimal grossAnnualSalary, final BigDecimal expected) {
-        annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(expected), sut.taxPayableFor(employeeMaking(grossAnnualSalary)));
-    }
 
     private class TestShell {
         private final Employee employee;
@@ -102,6 +99,10 @@ public class IncomeTaxCalculatorShould {
 
         public void expectTaxFreeIncome (final BigDecimal expected) {
             annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(expected), sut.taxFreeIncomeFor(employee));
+        }
+
+        public void expectTaxPayable(final BigDecimal expected){
+            annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(expected), sut.taxPayableFor(employee));
         }
 
     }
