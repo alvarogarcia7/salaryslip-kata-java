@@ -67,6 +67,7 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
             this.add(new TaxBand(valueOf(0), ZERO));
             this.add(new TaxBand(valueOf(11_000).subtract(initial), valueOf(0.2)));
             this.add(new TaxBand(valueOf(43_000).subtract(initial), valueOf(0.4)));
+            this.add(new TaxBand(valueOf(150_000), valueOf(0.45)));
         }};
         Collections.reverse(taxBands);
         return taxBands;
