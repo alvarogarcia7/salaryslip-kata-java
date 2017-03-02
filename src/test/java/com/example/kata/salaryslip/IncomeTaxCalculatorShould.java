@@ -73,12 +73,8 @@ public class IncomeTaxCalculatorShould {
 //        anEmployeeMaking(valueOf(150_000), valueOf(53_600));
     }
 
-    private Employee employeeMaking (final BigDecimal grossAnnualSalary) {
-        return new Employee("", "", grossAnnualSalary);
-    }
-
     private TestShell anEmployeeMaking (final BigDecimal grossAnnualSalary) {
-        return new TestShell(employeeMaking(grossAnnualSalary));
+        return new TestShell(new Employee("", "", grossAnnualSalary));
     }
 
 
