@@ -1,5 +1,6 @@
 package com.example.kata.salaryslip;
 
+import com.example.kata.salaryslip.domain.AnnualAmount;
 import org.hamcrest.core.Is;
 
 import static org.hamcrest.MatcherAssert.assertThat;

@@ -1,8 +1,8 @@
-package com.example.kata.salaryslip;
+package com.example.kata.salaryslip.domain;
 
 import java.math.BigDecimal;
 
-class TaxBand {
+public class TaxBand {
     private final BigDecimal lowerBound;
     private final BigDecimal taxRate;
 

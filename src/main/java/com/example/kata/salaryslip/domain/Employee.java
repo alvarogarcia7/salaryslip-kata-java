@@ -1,4 +1,6 @@
-package com.example.kata.salaryslip;
+package com.example.kata.salaryslip.domain;
+
+import com.example.kata.salaryslip.domain.AnnualAmount;
 
 import java.math.BigDecimal;
 

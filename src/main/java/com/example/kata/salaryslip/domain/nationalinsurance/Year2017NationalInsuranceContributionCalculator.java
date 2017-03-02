@@ -1,4 +1,9 @@
-package com.example.kata.salaryslip;
+package com.example.kata.salaryslip.domain.nationalinsurance;
+
+import com.example.kata.salaryslip.domain.AnnualAmount;
+import com.example.kata.salaryslip.domain.common.CategoryOverflowCalculator;
+import com.example.kata.salaryslip.domain.Employee;
+import com.example.kata.salaryslip.domain.TaxBand;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,10 +1,10 @@
 package com.example.kata.salaryslip.acceptance;
 
-import com.example.kata.salaryslip.Console;
-import com.example.kata.salaryslip.Employee;
-import com.example.kata.salaryslip.IncomeTaxCalculator;
-import com.example.kata.salaryslip.NationalInsuranceContributionCalculator;
-import com.example.kata.salaryslip.SalarySlipGenerator;
+import com.example.kata.salaryslip.delivery.Console;
+import com.example.kata.salaryslip.domain.Employee;
+import com.example.kata.salaryslip.domain.incometax.IncomeTaxCalculator;
+import com.example.kata.salaryslip.domain.nationalinsurance.NationalInsuranceContributionCalculator;
+import com.example.kata.salaryslip.domain.salaryslip.SalarySlipGenerator;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;

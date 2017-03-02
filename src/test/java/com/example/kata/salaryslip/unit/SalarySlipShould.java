@@ -1,11 +1,11 @@
 package com.example.kata.salaryslip.unit;
 
-import com.example.kata.salaryslip.Console;
-import com.example.kata.salaryslip.Employee;
-import com.example.kata.salaryslip.IncomeTaxCalculator;
-import com.example.kata.salaryslip.NationalInsuranceContributionCalculator;
-import com.example.kata.salaryslip.SalarySlipGenerator;
-import com.example.kata.salaryslip.Year2017NationalInsuranceContributionCalculator;
+import com.example.kata.salaryslip.delivery.Console;
+import com.example.kata.salaryslip.domain.Employee;
+import com.example.kata.salaryslip.domain.incometax.IncomeTaxCalculator;
+import com.example.kata.salaryslip.domain.nationalinsurance.NationalInsuranceContributionCalculator;
+import com.example.kata.salaryslip.domain.salaryslip.SalarySlipGenerator;
+import com.example.kata.salaryslip.domain.nationalinsurance.Year2017NationalInsuranceContributionCalculator;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static com.example.kata.salaryslip.AnnualAmount.valueOf;
+import static com.example.kata.salaryslip.domain.AnnualAmount.valueOf;
 
 public class SalarySlipShould {
 

@@ -1,10 +1,10 @@
-package com.example.kata.salaryslip.unit;
+package com.example.kata.salaryslip.unit.nationalinsurance;
 
-import com.example.kata.salaryslip.AnnualAmount;
+import com.example.kata.salaryslip.domain.AnnualAmount;
 import com.example.kata.salaryslip.AnnualAmountHelper;
-import com.example.kata.salaryslip.Employee;
-import com.example.kata.salaryslip.NationalInsuranceContributionCalculator;
-import com.example.kata.salaryslip.Year2017NationalInsuranceContributionCalculator;
+import com.example.kata.salaryslip.domain.Employee;
+import com.example.kata.salaryslip.domain.nationalinsurance.NationalInsuranceContributionCalculator;
+import com.example.kata.salaryslip.domain.nationalinsurance.Year2017NationalInsuranceContributionCalculator;
 import org.junit.Before;
 import org.junit.Test;
 

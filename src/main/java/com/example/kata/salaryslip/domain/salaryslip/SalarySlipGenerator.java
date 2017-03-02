@@ -1,4 +1,11 @@
-package com.example.kata.salaryslip;
+package com.example.kata.salaryslip.domain.salaryslip;
+
+import com.example.kata.salaryslip.delivery.Console;
+import com.example.kata.salaryslip.domain.AnnualAmount;
+import com.example.kata.salaryslip.domain.Employee;
+import com.example.kata.salaryslip.domain.MonthlyAmount;
+import com.example.kata.salaryslip.domain.incometax.IncomeTaxCalculator;
+import com.example.kata.salaryslip.domain.nationalinsurance.NationalInsuranceContributionCalculator;
 
 import java.math.BigDecimal;
 

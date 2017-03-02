@@ -1,9 +1,12 @@
-package com.example.kata.salaryslip;
+package com.example.kata.salaryslip.domain.common;
+
+import com.example.kata.salaryslip.domain.AnnualAmount;
+import com.example.kata.salaryslip.domain.TaxBand;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.example.kata.salaryslip.BigDecimalUtils.firstIsGreaterThan;
+import static com.example.kata.salaryslip.utils.BigDecimalUtils.firstIsGreaterThan;
 import static java.math.BigDecimal.ZERO;
 
 public class CategoryOverflowCalculator {
