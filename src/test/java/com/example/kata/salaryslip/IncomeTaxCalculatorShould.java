@@ -49,8 +49,8 @@ public class IncomeTaxCalculatorShould {
 
     @Test
     public void the_taxfree_income_is_the_part_not_covered_by_the_taxable_income () {
-        whenSalaryIsTaxFree(valueOf(130_000), expectTaxFreeIncome(valueOf(0)));
-        whenSalaryIsTaxFree(valueOf(105_500), expectTaxFreeIncome(valueOf(105_500).subtract(BigDecimal.valueOf(97_250))));
+        anEmployeeMaking(valueOf(130_000)).expectTaxFreeIncome(valueOf(0));
+        anEmployeeMaking(valueOf(105_500)).expectTaxFreeIncome(valueOf(105_500).subtract(BigDecimal.valueOf(97_250)));
     }
 
     @Test
@@ -85,10 +85,6 @@ public class IncomeTaxCalculatorShould {
         return new TestShell(employeeMaking(grossAnnualSalary));
     }
 
-    private void whenSalaryIsTaxFree (final BigDecimal grossAnnualSalary, AnnualAmount expected) {
-        annualAmountHelper.assertSameValueFor(expected, sut.taxFreeIncomeFor(employeeMaking(grossAnnualSalary)));
-    }
-
     private void whenSalaryIsTaxPayable (final BigDecimal grossAnnualSalary, final BigDecimal expected) {
         annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(expected), sut.taxPayableFor(employeeMaking(grossAnnualSalary)));
     }
@@ -102,7 +98,11 @@ public class IncomeTaxCalculatorShould {
 
         public void expectTaxableIncome (final BigDecimal zero) {
             annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(zero), sut.taxableIncomeFor(employee));
-
         }
+
+        public void expectTaxFreeIncome (final BigDecimal expected) {
+            annualAmountHelper.assertSameValueFor(AnnualAmount.valueOf(expected), sut.taxFreeIncomeFor(employee));
+        }
+
     }
 }
