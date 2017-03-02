@@ -1,5 +1,10 @@
-package com.example.kata.salaryslip;
+package com.example.kata.salaryslip.unit;
 
+import com.example.kata.salaryslip.AnnualAmount;
+import com.example.kata.salaryslip.AnnualAmountHelper;
+import com.example.kata.salaryslip.Employee;
+import com.example.kata.salaryslip.IncomeTaxCalculator;
+import com.example.kata.salaryslip.Year2017IncomeTaxCalculator;
 import org.junit.Before;
 import org.junit.Test;
 

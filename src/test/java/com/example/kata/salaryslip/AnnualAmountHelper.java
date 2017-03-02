@@ -6,7 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class AnnualAmountHelper {
-    void assertSameValueFor (final AnnualAmount expected, final AnnualAmount actual) {
+    public void assertSameValueFor (final AnnualAmount expected, final AnnualAmount actual) {
         if (!actual.isEqual(expected)) {
             assertThat(actual, Is.is(expected));
         }

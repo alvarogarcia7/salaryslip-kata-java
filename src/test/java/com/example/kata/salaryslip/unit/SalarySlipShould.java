@@ -1,5 +1,11 @@
-package com.example.kata.salaryslip;
+package com.example.kata.salaryslip.unit;
 
+import com.example.kata.salaryslip.Console;
+import com.example.kata.salaryslip.Employee;
+import com.example.kata.salaryslip.IncomeTaxCalculator;
+import com.example.kata.salaryslip.NationalInsuranceContributionCalculator;
+import com.example.kata.salaryslip.SalarySlipGenerator;
+import com.example.kata.salaryslip.Year2017NationalInsuranceContributionCalculator;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
