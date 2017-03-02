@@ -60,7 +60,7 @@ public class Year2017IncomeTaxCalculator implements IncomeTaxCalculator {
     private List<TaxBand> getTaxBands (BigDecimal reductionInPersonalAllowance) {
         List<TaxBand> taxBands = new ArrayList<TaxBand>() {{
             this.add(new TaxBand(valueOf(0), ZERO));
-            this.add(new TaxBand(valueOf(11_000).subtract(reductionInPersonalAllowance), valueOf(0.2)));
+            this.add(new TaxBand(PERSONAL_ALLOWANCE.subtract(reductionInPersonalAllowance), valueOf(0.2)));
             this.add(new TaxBand(valueOf(43_000).subtract(reductionInPersonalAllowance), valueOf(0.4)));
             this.add(new TaxBand(valueOf(150_000), valueOf(0.45)));
         }};
