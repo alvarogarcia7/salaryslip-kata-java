@@ -73,15 +73,15 @@ public class IncomeTaxCalculatorShould {
 //        anEmployeeMaking(valueOf(150_000), valueOf(53_600));
     }
 
-    private TestShell anEmployeeMaking (final BigDecimal grossAnnualSalary) {
-        return new TestShell(new Employee("", "", grossAnnualSalary));
+    private TestCase anEmployeeMaking (final BigDecimal grossAnnualSalary) {
+        return new TestCase(new Employee("", "", grossAnnualSalary));
     }
 
 
-    private class TestShell {
+    private class TestCase {
         private final Employee employee;
 
-        public TestShell (final Employee employee) {
+        public TestCase (final Employee employee) {
             this.employee = employee;
         }
 
