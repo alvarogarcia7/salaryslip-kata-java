@@ -10,7 +10,7 @@ public class AnnualAmount {
     }
 
     public MonthlyAmount toMonthly () {
-        return MonthlyAmount.valueOf(value().divide(BigDecimal.valueOf(12)));
+        return MonthlyAmount.valueOf(value().divide(BigDecimal.valueOf(12), 2, BigDecimal.ROUND_HALF_UP));
     }
 
     public static AnnualAmount valueOf (final BigDecimal value) {

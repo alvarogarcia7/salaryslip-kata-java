@@ -41,7 +41,7 @@ public class SalarySlipShould {
             oneOf(console).println("Employee ID: 12345");
             allowing(console).println(with(any(String.class)));
             allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
-            will(returnValue(valueOf(BigDecimal.valueOf(159.40))));
+            will(returnValue(valueOf(BigDecimal.ZERO)));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
@@ -57,7 +57,7 @@ public class SalarySlipShould {
             oneOf(console).println("Employee Name: John J Doe");
             allowing(console).println(with(any(String.class)));
             allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
-            will(returnValue(valueOf(BigDecimal.valueOf(159.40))));
+            will(returnValue(valueOf(BigDecimal.ZERO)));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
@@ -72,7 +72,7 @@ public class SalarySlipShould {
             oneOf(console).println("Gross Salary: £2000.00");
             allowing(console).println(with(any(String.class)));
             allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
-            will(returnValue(valueOf(BigDecimal.valueOf(159.40))));
+            will(returnValue(valueOf(BigDecimal.ZERO)));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 
@@ -87,7 +87,7 @@ public class SalarySlipShould {
             oneOf(console).println("National Insurance contributions: £159.40");
             allowing(console).println(with(any(String.class)));
             allowing(nationalInsuranceContributionCalculator).amountFor(with(any(Employee.class)));
-            will(returnValue(valueOf(BigDecimal.valueOf(159.40))));
+            will(returnValue(valueOf(BigDecimal.valueOf(159.40).multiply(BigDecimal.valueOf(12)))));
             allowingAnyInteractionWith(this, incomeTaxCalculator);
         }});
 

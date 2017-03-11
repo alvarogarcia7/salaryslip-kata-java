@@ -3,17 +3,17 @@ package com.example.kata.salaryslip.acceptance;
 import com.example.kata.salaryslip.delivery.Console;
 import com.example.kata.salaryslip.domain.Employee;
 import com.example.kata.salaryslip.domain.incometax.IncomeTaxCalculator;
+import com.example.kata.salaryslip.domain.incometax.Year2017IncomeTaxCalculator;
 import com.example.kata.salaryslip.domain.nationalinsurance.NationalInsuranceContributionCalculator;
+import com.example.kata.salaryslip.domain.nationalinsurance.Year2017NationalInsuranceContributionCalculator;
 import com.example.kata.salaryslip.domain.salaryslip.SalarySlipGenerator;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 
-@Ignore
 public class SalarySlipShould {
 
     private Console console;
@@ -27,8 +27,8 @@ public class SalarySlipShould {
     public void setUp () {
         context = new Mockery();
         console = context.mock(Console.class);
-        incomeTaxCalculator= context.mock(IncomeTaxCalculator.class);
-        nationalInsuranceContributionCalculator = context.mock(NationalInsuranceContributionCalculator.class);
+        incomeTaxCalculator= new Year2017IncomeTaxCalculator();
+        nationalInsuranceContributionCalculator = new Year2017NationalInsuranceContributionCalculator();
         sut = new SalarySlipGenerator(console, nationalInsuranceContributionCalculator, incomeTaxCalculator);
     }
 

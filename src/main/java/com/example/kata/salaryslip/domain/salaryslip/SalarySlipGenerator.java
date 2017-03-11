@@ -7,8 +7,6 @@ import com.example.kata.salaryslip.domain.MonthlyAmount;
 import com.example.kata.salaryslip.domain.incometax.IncomeTaxCalculator;
 import com.example.kata.salaryslip.domain.nationalinsurance.NationalInsuranceContributionCalculator;
 
-import java.math.BigDecimal;
-
 public class SalarySlipGenerator {
     private final Console console;
     private final NationalInsuranceContributionCalculator nationalInsuranceContributionCalculator;
@@ -24,7 +22,8 @@ public class SalarySlipGenerator {
         console.println("Employee ID: " + employee.employeeId());
         console.println("Employee Name: " + employee.name());
         console.println("Gross Salary: " + format(toMonthly(employee.grossAnnualSalary())));
-        console.println("National Insurance contributions: " + format(calculateNationalInsuranceContributions(employee)));
+        console.println("National Insurance contributions: " + format(toMonthly(calculateNationalInsuranceContributions
+                (employee))));
         console.println("Tax-free allowance: " + format(toMonthly(incomeTaxCalculator.taxFreeIncomeFor(employee))));
         console.println("Taxable income: " + format(toMonthly(incomeTaxCalculator.taxableIncomeFor(employee))));
         console.println("Tax payable: " + format(toMonthly(incomeTaxCalculator.taxPayableFor(employee))));
@@ -40,10 +39,6 @@ public class SalarySlipGenerator {
 
     private String format (final AnnualAmount amount) {
         return "£" + amount.value();
-    }
-
-    private BigDecimal toMonthly (final BigDecimal grossAnnualSalary) {
-        return grossAnnualSalary.divide(BigDecimal.valueOf(12));
     }
 
     private MonthlyAmount toMonthly (final AnnualAmount grossAnnualSalary) {
